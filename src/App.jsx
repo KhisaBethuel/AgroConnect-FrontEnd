@@ -6,6 +6,7 @@ import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
+import ProfilePage from "./Pages/ProfilePage";
 
 
 
@@ -24,6 +25,7 @@ const App = () => {
     <Blog />
     <BlogCard />
     <SignupPage />
+    <ProfilePage />
   </div>
     </>
    
