@@ -1,3 +1,256 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base styles */
+:root {
+    --primary-green: #16a34a;
+    --primary-yellow: #facc15;
+    --text-dark: #111827;
+    --text-light: #4b5563;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    background: white;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    background: white;
+    padding: 1rem 1.5rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .logo{
+    height: 69px;
+    width: 64px;
+  }
+  
+  .navbar-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-green);
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .nav-link:hover {
+    color: var(--primary-green);
+  }
+  
+  .join-button {
+    background: var(--primary-green);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .join-button:hover {
+    background: #15803d;
+  }
+  
+  /* Hero section styles */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 4rem;
+  }
+  
+  .hero-background {
+    position: absolute;
+    inset: 0;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: white;
+    padding: 0 1rem;
+  }
+  
+  .hero-title {
+    font-size: 3.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    max-width: 42rem;
+  }
+  
+  .hero-description {
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .cta-button {
+    background: var(--primary-yellow);
+    color: var(--text-dark);
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .cta-button:hover {
+    background: #fbbf24;
+    transform: scale(1.05);
+  }
+  
+  /* Features section styles */
+  .features {
+    padding: 5rem 1.5rem;
+    background: #f9fafb;
+  }
+  
+  .features-container {
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+  
+  .features-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .features-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .features-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  }
+  
+  .feature-icon {
+    background: #f0fdf4;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .feature-icon svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--primary-green);
+  }
+  
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .feature-description {
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+  }
+  
