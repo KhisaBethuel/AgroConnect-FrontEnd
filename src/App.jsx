@@ -1,10 +1,9 @@
-import React from 'react';
 import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 
-function App() {
+const App = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -12,8 +11,7 @@ function App() {
         <Hero />
         <Features />
       </main>
-    </div>
-  );
+    </div>  );
 }
 
 export default App;
