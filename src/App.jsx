@@ -1,11 +1,19 @@
+import React, { useState } from "react";
+import Blog from "./Pages/Blog";
+
+import BlogCard from "./Components/BlogCard";
 
 
-const App = () => {
+function App() {
+  
+
   return (
-    <div>
-      <h1 className="bg-gray-900">Hello</h1>
+    <div className="App">
+      <Blog />
+      <BlogCard />
+      
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
