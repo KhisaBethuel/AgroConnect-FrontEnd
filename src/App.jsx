@@ -1,11 +1,18 @@
+import React from 'react';
+import Navbar from './Components/Navbar';
+import Hero from './Components/Hero';
+import Features from './Components/Features';
 
-
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1 className="bg-gray-900">Hello</h1>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main>
+        <Hero />
+        <Features />
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
