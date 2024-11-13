@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Mail, User, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
 
 function App() {
@@ -204,7 +205,7 @@ function App() {
           </div>
 
           <div className="mt-6">
-            <button
+            <a href="https://accounts.google.com"><button
               type="button"
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-white/20 rounded-xl text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 backdrop-blur-sm"
             >
@@ -215,6 +216,7 @@ function App() {
               />
               Continue with Google
             </button>
+            </a>
           </div>
         </form>
       </div>
