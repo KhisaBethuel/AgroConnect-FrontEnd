@@ -1,8 +1,8 @@
+import SignupPage from "./Pages/SignUp"
 import React, { useState } from "react";
 import Blog from "./Pages/Blog";
 
 import BlogCard from "./Components/BlogCard";
-
 
 function App() {
   
@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Blog />
       <BlogCard />
-      
+      <SignupPage />
     </div>
   );
 }
