@@ -1,11 +1,19 @@
 import SignupPage from "./Pages/SignUp"
+import React, { useState } from "react";
+import Blog from "./Pages/Blog";
 
-const App = () => {
+import BlogCard from "./Components/BlogCard";
+
+function App() {
+  
+
   return (
-    <div>
+    <div className="App">
+      <Blog />
+      <BlogCard />
       <SignupPage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
