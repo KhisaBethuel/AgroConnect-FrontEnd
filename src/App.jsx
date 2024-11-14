@@ -7,6 +7,10 @@ import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
+import Footer from './Components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Pages/Login'
+
 
 
 
@@ -14,19 +18,28 @@ import ProfilePage from "./Pages/ProfilePage";
 const App = () => {
   return (
     <>
-       <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-      </main>
-    </div>
-    <div className="App">
-    <Blog />
-    <BlogCard />
-    <SignupPage />
-    <ProfilePage />
-  </div>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main>
+          <Hero />
+          <Features />
+        </main>
+      </div>
+
+      <div className="App">
+        <Blog />
+        <BlogCard />
+        <ProfilePage />
+      </div>
+
+      <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Footer />} />
+      </Routes>
+    </Router>
+
     </>
    
   )
