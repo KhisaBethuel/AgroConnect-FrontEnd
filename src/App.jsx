@@ -3,18 +3,53 @@ import React, { useState } from "react";
 import Blog from "./Pages/Blog";
 import BlogPublishForm from "./Components/BlogPublishForm.jsx";
 import BlogCard from "./Components/BlogCard";
+import Navbar from './Components/Navbar';
+import Hero from './Components/Hero';
+import Features from './Components/Features';
+import './index.css';
+import ProfilePage from "./Pages/ProfilePage";
 
-function App() {
-  
+import Footer from './Components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Pages/Login'
+import ChatApp from "./Pages/ChatInterface";
 
+
+
+
+
+const App = () => {
   return (
-    <div className="App">
-      <Blog />
-      <BlogCard />
-      <SignupPage />
-      <BlogPublishForm />
-    </div>
-  );
+    <>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main>
+          <Hero />
+          <Features />
+        </main>
+      </div>
+
+      <div className="App">
+        <Blog />
+        <BlogCard />
+        <ProfilePage />
+        <ChatApp />
+        <BlogPublishForm />
+
+      </div>
+
+      <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Footer />} />
+      </Routes>
+    </Router>
+
+    </>
+   
+  )
+  
 }
 
 export default App;
