@@ -7,9 +7,11 @@ import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
+
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login'
+import ChatApp from "./Pages/ChatInterface";
 
 
 
@@ -30,6 +32,7 @@ const App = () => {
         <Blog />
         <BlogCard />
         <ProfilePage />
+        <ChatApp />
       </div>
 
       <Router>
