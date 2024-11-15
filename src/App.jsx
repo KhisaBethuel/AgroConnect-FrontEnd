@@ -1,6 +1,7 @@
 import SignupPage from "./Pages/SignUp"
 import React, { useState } from "react";
 import Blog from "./Pages/Blog";
+import BlogPublishForm from "./Components/BlogPublishForm.jsx";
 import BlogCard from "./Components/BlogCard";
 import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
@@ -33,6 +34,8 @@ const App = () => {
         <BlogCard />
         <ProfilePage />
         <ChatApp />
+        <BlogPublishForm />
+
       </div>
 
       <Router>
