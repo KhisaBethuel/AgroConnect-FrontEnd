@@ -7,7 +7,12 @@ import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
+
+import Footer from './Components/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Pages/Login'
 import ChatApp from "./Pages/ChatInterface";
+
 
 
 
@@ -15,20 +20,29 @@ import ChatApp from "./Pages/ChatInterface";
 const App = () => {
   return (
     <>
-       <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-      </main>
-    </div>
-    <div className="App">
-    <Blog />
-    <BlogCard />
-    <SignupPage />
-    <ProfilePage />
-    <ChatApp />
-  </div>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main>
+          <Hero />
+          <Features />
+        </main>
+      </div>
+
+      <div className="App">
+        <Blog />
+        <BlogCard />
+        <ProfilePage />
+        <ChatApp />
+      </div>
+
+      <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Footer />} />
+      </Routes>
+    </Router>
+
     </>
    
   )
