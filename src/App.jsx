@@ -7,6 +7,7 @@ import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
+import ChatApp from "./Pages/ChatInterface";
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
     <BlogCard />
     <SignupPage />
     <ProfilePage />
+    <ChatApp />
   </div>
     </>
    
