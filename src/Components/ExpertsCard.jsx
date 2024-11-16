@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ExpertCard() {
+function ExpertsCard() {
   const [searchTerm, setSearchTerm] = useState('');
   const experts = [
     {
@@ -78,4 +78,4 @@ function ExpertCard() {
   );
 }
 
-export default ExpertCard;
+export default ExpertsCard;

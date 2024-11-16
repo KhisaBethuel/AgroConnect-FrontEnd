@@ -1,24 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Eye, EyeOff, Lock, Mail, User, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
+import {Link} from 'react-router-dom';
+import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
 
-function App() {
+function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [touched, setTouched] = useState({ name: false, email: false, password: false });
+  const [touched, setTouched] = useState({ email: false, password: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormValid) {
-      console.log({ name, email, password });
+      console.log({ email, password });
     }
-  };
-
-  const nameValidation = {
-    isValid: name.length >= 2 && /^[a-zA-Z\s]*$/.test(name),
-    message: 'Name must be at least 2 characters and contain only letters'
   };
 
   const emailValidation = {
@@ -26,28 +20,12 @@ function App() {
     message: 'Please enter a valid email address'
   };
 
-  const passwordValidations = [
-    { test: password.length >= 8, message: 'At least 8 characters' },
-    { test: /[A-Z]/.test(password), message: 'One uppercase letter' },
-    { test: /[a-z]/.test(password), message: 'One lowercase letter' },
-    { test: /[0-9]/.test(password), message: 'One number' },
-    { test: /[^A-Za-z0-9]/.test(password), message: 'One special character' }
-  ];
-
-  const strength = passwordValidations.filter(v => v.test).length;
-  const isFormValid = nameValidation.isValid && emailValidation.isValid && strength === 5;
-
-  const getStrengthColor = (strength) => {
-    switch (strength) {
-      case 0: return 'bg-gray-200/50';
-      case 1: return 'bg-red-500/50';
-      case 2: return 'bg-orange-500/50';
-      case 3: return 'bg-yellow-500/50';
-      case 4: return 'bg-green-500/50';
-      case 5: return 'bg-emerald-500/50';
-      default: return 'bg-gray-200/50';
-    }
+  const passwordValidation = {
+    isValid: password.length >= 8,
+    message: 'Password must be at least 8 characters'
   };
+
+  const isFormValid = emailValidation.isValid && passwordValidation.isValid;
 
   const handleBlur = (field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
@@ -61,42 +39,15 @@ function App() {
       <div className="max-w-md space-y-8 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 relative">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-extrabold text-white drop-shadow-lg">
-            Get Started
+            Welcome Back
           </h2>
           <p className="text-sm text-white/80">
-            Already have an Account ? <a href="/login" className="text-white hover:text-white/80 underline">Log in</a>
+            New here? <a href="/signup" className="text-white hover:text-white/80 underline">Create an account</a>
           </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            <div className="space-y-1">
-              <div className="relative group">
-                <label htmlFor="name" className="sr-only">
-                  Full Name
-                </label>
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-5 w-5 transition-colors group-hover:text-white/90 z-10" />
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={() => handleBlur('name')}
-                  className={`pl-10 w-full px-4 py-3 border ${
-                    touched.name && !nameValidation.isValid 
-                      ? 'border-red-400/50' 
-                      : 'border-white/20'
-                  } rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent bg-white/10 backdrop-blur-sm transition-all hover:bg-white/20`}
-                  placeholder="Full Name"
-                />
-              </div>
-              {touched.name && !nameValidation.isValid && (
-                <p className="text-red-500 text-sm pl-2">{nameValidation.message}</p>
-              )}
-            </div>
-
             <div className="space-y-1">
               <div className="relative group">
                 <label htmlFor="email" className="sr-only">
@@ -116,7 +67,7 @@ function App() {
                       ? 'border-red-400/50' 
                       : 'border-white/20'
                   } rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent bg-white/10 backdrop-blur-sm transition-all hover:bg-white/20`}
-                  placeholder="Email address"
+                  placeholder="Email"
                 />
               </div>
               {touched.email && !emailValidation.isValid && (
@@ -153,33 +104,14 @@ function App() {
                   )}
                 </button>
               </div>
-
-              {password && (
-                <div className="space-y-4">
-                  <div className="flex gap-2">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-1 w-full rounded-full transition-colors ${i < strength ? getStrengthColor(strength) : 'bg-gray-200/50'}`}
-                      />
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {passwordValidations.map(({ test, message }, index) => (
-                      <div key={index} className="flex items-center gap-2 text-sm">
-                        {test ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-400/80" />
-                        ) : (
-                          <XCircle className="h-4 w-4 text-white/30" />
-                        )}
-                        <span className={`text-white/80 ${test ? 'text-green-400/80' : ''}`}>
-                          {message}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {touched.password && !passwordValidation.isValid && (
+                <p className="text-red-500 text-sm pl-2">{passwordValidation.message}</p>
               )}
+              <div className="flex justify-end">
+                <a href="/forgot-password" className="text-sm text-white hover:text-white/80 underline">
+                  Forgot password?
+                </a>
+              </div>
             </div>
           </div>
 
@@ -193,7 +125,7 @@ function App() {
                   : 'bg-white/10 cursor-not-allowed'
               } focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 backdrop-blur-sm`}
             >
-              Get Started
+              Sign In
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -205,7 +137,7 @@ function App() {
           </div>
 
           <div className="mt-6">
-            <a href="https://accounts.google.com"><button
+           <a href="https://accounts.google.com"> <button
               type="button"
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-white/20 rounded-xl text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 backdrop-blur-sm"
             >
@@ -224,4 +156,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
