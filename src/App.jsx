@@ -5,8 +5,10 @@ import BlogCard from "./Components/BlogCard";
 import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
 import Features from './Components/Features';
-import './index.css';
 
+import './index.css';
+import { ExpertsSection } from "./Components/ExpertSection";
+import { BlogsSection } from './Components/BlogsSection';
 
 
 
@@ -19,11 +21,14 @@ const App = () => {
         <Hero />
         <Features />
       </main>
+      <ExpertsSection/>
+      <BlogsSection/>
     </div>
     <div className="App">
     <Blog />
     <BlogCard />
     <SignupPage />
+
   </div>
     </>
    
