@@ -9,6 +9,9 @@ import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
 
+import ExpertsCard from "./Components/ExpertsCard";
+import CommunityCard from "./Components/CommunityCard";
+
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login'
@@ -42,6 +45,8 @@ const App = () => {
         <BlogPublishForm />
         <BlogsSection />
         <ExpertsSection />
+        <ExpertsCard />
+        <CommunityCard />
       </div>
 
       <Router>
