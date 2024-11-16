@@ -6,8 +6,6 @@ import BlogCard from "./Components/BlogCard";
 import Navbar from './Components/Navbar';
 import Hero from './Components/Hero';
 import Features from './Components/Features';
-<<<<<<< HEAD
-=======
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
 
@@ -16,7 +14,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login'
 import ChatApp from "./Pages/ChatInterface";
 
->>>>>>> 41fba15111dc6ab89b7eefa04e172231961fc2e1
 
 import './index.css';
 import { ExpertsSection } from "./Components/ExpertSection";
@@ -27,23 +24,8 @@ import { BlogsSection } from './Components/BlogsSection';
 const App = () => {
   return (
     <>
-<<<<<<< HEAD
-       <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-      </main>
-      <ExpertsSection/>
-      <BlogsSection/>
-    </div>
-    <div className="App">
-    <Blog />
-    <BlogCard />
-    <SignupPage />
 
-  </div>
-=======
+
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main>
@@ -58,7 +40,8 @@ const App = () => {
         <ProfilePage />
         <ChatApp />
         <BlogPublishForm />
-
+        <BlogsSection />
+        <ExpertsSection />
       </div>
 
       <Router>
@@ -69,7 +52,7 @@ const App = () => {
       </Routes>
     </Router>
 
->>>>>>> 41fba15111dc6ab89b7eefa04e172231961fc2e1
+
     </>
    
   )
