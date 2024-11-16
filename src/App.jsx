@@ -7,6 +7,8 @@ import Hero from './Components/Hero';
 import Features from './Components/Features';
 import './index.css';
 import ProfilePage from "./Pages/ProfilePage";
+import ExpertCard from "./Components/ExpertCard";
+import CommunityCard from "./Components/CommunityCard";
 
 
 
@@ -26,6 +28,8 @@ const App = () => {
     <BlogCard />
     <SignupPage />
     <ProfilePage />
+    <ExpertCard />
+    <CommunityCard />
   </div>
     </>
    
