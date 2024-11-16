@@ -15,12 +15,17 @@ import Login from './Pages/Login'
 import ChatApp from "./Pages/ChatInterface";
 
 
+import './index.css';
+import { ExpertsSection } from "./Components/ExpertSection";
+import { BlogsSection } from './Components/BlogsSection';
 
 
 
 const App = () => {
   return (
     <>
+
+
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main>
@@ -35,7 +40,8 @@ const App = () => {
         <ProfilePage />
         <ChatApp />
         <BlogPublishForm />
-
+        <BlogsSection />
+        <ExpertsSection />
       </div>
 
       <Router>
@@ -45,6 +51,7 @@ const App = () => {
         <Route path="/" element={<Footer />} />
       </Routes>
     </Router>
+
 
     </>
    
