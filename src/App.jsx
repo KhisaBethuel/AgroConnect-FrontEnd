@@ -21,6 +21,8 @@ import ChatApp from "./Pages/ChatInterface";
 import './index.css';
 import { ExpertsSection } from "./Components/ExpertSection";
 import { BlogsSection } from './Components/BlogsSection';
+import ReadingPage from "./Pages/ReadingPage.jsx";
+import CommentSection from "./Components/CommentSection.jsx";
 
 
 
@@ -47,6 +49,8 @@ const App = () => {
         <ExpertsSection />
         <ExpertsCard />
         <CommunityCard />
+        <ReadingPage />
+        <CommentSection />
       </div>
 
       <Router>
