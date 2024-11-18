@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ExpertCard } from './ExpertCard';
 
 
@@ -28,7 +28,7 @@ export function ExpertsSection() {
       <p>Connect with leading professionals who are shaping the future of agriculture.</p>
       <div className="experts-grid">
         {experts.map((expert) => (
-         <ExpertCard key={expert.name} {...expert}/>   
+          <ExpertCard key={expert.name} {...expert}/>   
         ))}
       </div>
     </section>
