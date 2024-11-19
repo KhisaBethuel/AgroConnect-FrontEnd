@@ -1,21 +1,24 @@
+import React from 'react'
+
+
 import { NavLink, useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
-const handleAuthClick = () => {
-  if (isLoggedIn) {
-    setIsLoggedIn(false);
-    navigate("/");
-  } else {
-    navigate("/signup");
-  }
-};
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      setIsLoggedIn(false);
+      navigate("/");
+    } else {
+      navigate("/signup");
+    }
+  };
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
+      <div className="navbar-container ">
         <div className="logo-container">
           <img
             src="https://png.pngtree.com/element_our/sm/20180411/sm_5ace0628840fa.png"
