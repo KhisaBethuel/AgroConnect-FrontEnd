@@ -23,7 +23,7 @@ const blogs = [
 export function BlogsSection() {
   return (
     <section className="blogs-section">
-      <h3></h3>
+           <h1 className="title20">Featured blogs</h1>
       <div className="blogs-grid">
         {blogs.map((blog) => (
           <BlogsCard  key={blog.title} {...blog}/>
