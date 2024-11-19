@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
-
+import React from 'react';
 // eslint-disable-next-line react/prop-types
 function Login({ setIsLoggedIn }) {
   const [showPassword, setShowPassword] = useState(false);

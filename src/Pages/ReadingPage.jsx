@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineLike, AiOutlineComment } from "react-icons/ai";
+import React from 'react';
 
 const ReadingPage = () => {
   const { id } = useParams();

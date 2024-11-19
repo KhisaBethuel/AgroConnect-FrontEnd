@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Navbar from '../Components/Navbar';
+import React from 'react';
 
 function CommunityPage() {
   const [searchTerm, setSearchTerm] = useState('');

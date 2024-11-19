@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Hero() {
+const Hero = () => {
   return (
     <div className="hero">
       <div className="hero-background">
@@ -29,3 +29,4 @@ export default function Hero() {
     </div>
   );
 }
+export default Hero

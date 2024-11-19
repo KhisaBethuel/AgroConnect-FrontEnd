@@ -1,3 +1,6 @@
+import React from 'react'
+
+
 import { Routes, Route, useLocation } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Navbar from "./Components/Navbar";

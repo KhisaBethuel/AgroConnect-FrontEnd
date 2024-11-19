@@ -3,6 +3,7 @@ import { FaPhone, FaVideo, FaSmile, FaPaperclip } from "react-icons/fa";
 import EmojiPicker from "emoji-picker-react";
 import "../index.css";
 import Navbar from "../Components/Navbar";
+import React from 'react';
 
 const ChatApp = () => {
   const [selectedCommunity, setSelectedCommunity] = useState(null);
