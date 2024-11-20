@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const images = [
   {
     url: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-    title: "Connecting Agricultural Minds",
+    title: "Connecting Agricultural Minds"
   },
   {
     url: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-    title: "Sustainable Farming",
+    title: "Sustainable Farming"
   },
   {
     url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
-    title: "Innovation in Agriculture",
-  },
+    title: "Innovation in Agriculture"
+  }
 ];
 
 function Hero() {
@@ -55,7 +55,8 @@ function Hero() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0">
+          className="absolute inset-0"
+        >
           <img
             src={images[nextIndex].url}
             alt="Next agricultural scene"
@@ -72,25 +73,27 @@ function Hero() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="relative z-10 px-4 text-center">
+          className="relative z-10 px-4 text-center"
+        >
           <motion.h1
             key={images[currentIndex].title}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="mb-6 text-4xl font-bold leading-tight text-white drop-shadow-lg sm:text-5xl md:text-7xl">
+            className="mb-6 text-4xl font-bold leading-tight text-white drop-shadow-lg sm:text-5xl md:text-7xl"
+          >
             {images[currentIndex].title}
           </motion.h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white drop-shadow-lg sm:text-xl md:text-2xl">
-            Join the world&apos;s largest network of agricultural experts,
-            farmers, and researchers
+            Join the world&apos;s largest network of agricultural experts, farmers, and researchers
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="rounded-full bg-green-600 px-8 py-3 text-lg font-semibold text-white shadow-xl 
                     transition-colors duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 
-                    focus:ring-green-500 focus:ring-offset-2">
+                    focus:ring-green-500 focus:ring-offset-2"
+          >
             GET STARTED
           </motion.button>
         </motion.div>
@@ -106,11 +109,7 @@ function Hero() {
               setNextIndex((index + 1) % images.length);
             }}
             className={`h-2 w-2 rounded-full transition-all duration-300 
-                      ${
-                        index === currentIndex
-                          ? "bg-white w-6"
-                          : "bg-white/50 hover:bg-white/75"
-                      }`}
+                      ${index === currentIndex ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/75'}`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
@@ -123,39 +122,21 @@ function Hero() {
                    hover:bg-white/20 focus:outline-none"
           onClick={() => paginate(-1)}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className="h-6 w-6">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
+          whileTap={{ scale: 0.9 }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-6 w-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </motion.button>
         <motion.button
           className="rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-all 
-                  hover:bg-white/20 focus:outline-none"
+                   hover:bg-white/20 focus:outline-none"
           onClick={() => paginate(1)}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className="h-6 w-6">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
+          whileTap={{ scale: 0.9 }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-6 w-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </motion.button>
       </div>
