@@ -395,6 +395,14 @@
   margin-bottom: 1rem;
 }
 
+.title20{
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 2rem 0;
+
+}
+
 .blogs-section-title {
   color: #1a1a1a;
   margin-bottom: 20px;
