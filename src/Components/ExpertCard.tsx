@@ -13,7 +13,7 @@ export function ExpertCard({ name, title, imageUrl }: ExpertCardProps) {
       <img src={imageUrl} alt={`${name} - ${title}`} />
       <h3>{name}</h3>
       <p>{title}</p>
-      <button className="follow-btn">Follow</button>
+      
     </div>
   );
 }
