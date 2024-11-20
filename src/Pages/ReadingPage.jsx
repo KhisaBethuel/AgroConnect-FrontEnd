@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineLike, AiOutlineComment } from "react-icons/ai";
+import React from "react";
 
 const ReadingPage = () => {
   const { id } = useParams();
@@ -32,7 +34,7 @@ const ReadingPage = () => {
     return <div>Loading...</div>;
   }
   return (
-    <article className="bg-white rounded-xl shadow-md overflow-hidden">
+    <article className="bg-white rounded-xl shadow-md overflow-hidden pt-20">
       {/* Title */}
       <div className="max-w-3xl mx-auto">
         <div className="px-6 sm:px-8 pt-8">
@@ -43,8 +45,8 @@ const ReadingPage = () => {
 
         {/* Author Info */}
         <div className="px-6 sm:px-8 py-4 flex items-center space-x-4 border-b border-green-100">
-          <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
+          <img00
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=1"
             alt="Victor Shape"
             className="w-12 h-12 rounded-full object-cover border-2 border-green-200"
           />
@@ -88,7 +90,6 @@ const ReadingPage = () => {
           />
         </div>
 
-        
         <div className="px-6 sm:px-8 py-8">
           <div className="prose max-w-none">
             <p className="text-gray-700 text-lg leading-relaxed mb-6">

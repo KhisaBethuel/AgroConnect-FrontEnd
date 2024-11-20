@@ -1,36 +1,51 @@
-
-import { ExpertCard } from './ExpertCard';
-
-
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { ExpertCard } from "./ExpertCard";
 
 const experts = [
   {
-    name: 'Eng Norah Seini',
-    title: 'Agricultural Engineer',
-    imageUrl: 'https://i.pinimg.com/236x/dd/3b/cf/dd3bcffac74ad6a1b854ea36023192a2.jpg'
+    name: "Eng Norah Seini",
+    title: "Agricultural Engineer",
+    imageUrl:
+      "https://i.pinimg.com/236x/94/50/29/945029307ecdb00b8c83475f9a32e1e5.jpg",
   },
   {
-    name: 'leo messi',
-    title: 'Soil Engineer',
-    imageUrl: 'https://i.pinimg.com/236x/5d/17/47/5d1747fb6f27dc9515ca3b3a5309a26c.jpg'
+    name: "leo messi",
+    title: "Soil Engineer",
+    imageUrl:
+      "https://i.pinimg.com/236x/af/2f/f5/af2ff5bbac0fc1b41277173f7f7e807e.jpg",
   },
   {
-    name: 'Victor Shape',
-    title: 'Agricultural Engineer',
-    imageUrl: 'https://images.unsplash.com/photo-1530062845289-9109b2c9c868?auto=format&fit=crop&w=200&h=200'
-  }
+    name: "Victor Shape",
+    title: "Agricultural Engineer",
+    imageUrl:
+      "https://i.pinimg.com/236x/fe/17/ed/fe17ed25cb823cef881cd6eb3490d77b.jpg",
+  },
 ];
 
 export function ExpertsSection() {
   return (
-    <section className="experts-section">
-      <h1>Learn from Top Agricultural Experts</h1>
-      <p>Connect with leading professionals who are shaping the future of agriculture.</p>
+    <div className="container">
+      <h1 className="title">Learn from Top Agricultural Experts</h1>
+      <p className="subtitle">
+        Connect with leading professionals who are shaping the future of
+        agriculture.
+      </p>
+
       <div className="experts-grid">
-        {experts.map((expert) => (
-          <ExpertCard key={expert.name} {...expert}/>   
+        {experts.map((expert, index) => (
+          <div key={index} className="expert-card">
+            <img
+              src={expert.imageUrl}
+              alt={expert.name}
+              className="profile-image"
+            />
+            <h2 className="expert-name">{expert.name}</h2>
+            <p className="expert-title">{expert.title}</p>
+            <button className="follow-button">Follow</button>
+          </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import React from "react";
 
 function SignUp({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -31,8 +33,8 @@ function SignUp({ setIsLoggedIn }) {
     if (isFormValid) {
       console.log({ name, email, password });
 
-      setIsLoggedIn(true); 
-      navigate("/blogs"); 
+      setIsLoggedIn(true);
+      navigate("/blogs");
     }
   };
 
@@ -82,7 +84,7 @@ function SignUp({ setIsLoggedIn }) {
   };
 
   return (
-    <>
+    <div className="pt-10">
       <Navbar />
       <div className="min-h-screen flex items-center justify-center p-4 relative bg-red">
         <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-b-lg bg-center bg-no-repeat bg-[length:90%_90%] " />
@@ -267,7 +269,7 @@ function SignUp({ setIsLoggedIn }) {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

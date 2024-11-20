@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -84,14 +85,14 @@ function Hero() {
             {images[currentIndex].title}
           </motion.h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white drop-shadow-lg sm:text-xl md:text-2xl">
-            Join the world's largest network of agricultural experts, farmers, and researchers
+            Join the world&apos;s largest network of agricultural experts, farmers, and researchers
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="rounded-full bg-green-600 px-8 py-3 text-lg font-semibold text-white shadow-xl 
-                     transition-colors duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 
-                     focus:ring-green-500 focus:ring-offset-2"
+                    transition-colors duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 
+                    focus:ring-green-500 focus:ring-offset-2"
           >
             GET STARTED
           </motion.button>
