@@ -14,7 +14,7 @@ import { useState } from "react";
 import ChatInterface from "./Pages/ChatInterface";
 import ProfilePage from "./Pages/ProfilePage";
 import ReadingPage from "./Pages/ReadingPage";
-import BlogPublish from "./Pages/BlogPublishForm";
+import BlogPublish from "./Components/BlogPublishForm";
 import ExpertsPage from "./Pages/ExpertsPage";
 import CommunityPage from "./Pages/CommunityPage";
 import { BlogsSection } from "./Components/BlogsSection";

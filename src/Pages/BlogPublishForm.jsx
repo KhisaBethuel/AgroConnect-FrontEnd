@@ -2,25 +2,85 @@
 import { useState } from "react";
 import Navbar from "../Components/Navbar";
 import React from "react";
-const BlogPublishForm = () => {
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState(null);
-  const [story, setStory] = useState("");
+import { Upload, Image as ImageIcon, Send, X } from "lucide-react";
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleImageChange = (e) => setImage(e.target.files[0]);
-  const handleStoryChange = (e) => setStory(e.target.value);
+const BlogPublishForm = () => {
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    story: "",
+    tags: [],
+  });
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [currentTag, setCurrentTag] = useState("");
+
+  const categories = [
+    "Crop Farming",
+    "Livestock",
+    "Agricultural Technology",
+    "Sustainable Farming",
+    "Market Insights",
+    "Farm Management",
+    "Weather Updates",
+    "Success Stories",
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleTagKeyDown = (e) => {
+    if (e.key === "Enter" && currentTag.trim()) {
+      e.preventDefault();
+      if (!formData.tags.includes(currentTag.trim())) {
+        setFormData((prev) => ({
+          ...prev,
+          tags: [...prev.tags, currentTag.trim()],
+        }));
+      }
+      setCurrentTag("");
+    }
+  };
+
+  const removeTag = (tagToRemove) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("story", story);
+    const { title, story } = formData;
+
+    const submissionData = new FormData();
+    submissionData.append("title", title);
+    submissionData.append("story", story);
     if (image) {
-      formData.append("image", image);
+      submissionData.append("image", image);
     }
 
-    console.log("Form Submitted:", formData);
+    console.log("Form Submitted:", {
+      ...formData,
+      image,
+    });
   };
 
   return (
@@ -43,8 +103,8 @@ const BlogPublishForm = () => {
                 type="text"
                 id="title"
                 name="title"
-                value={title}
-                onChange={handleTitleChange}
+                value={formData.title}
+                onChange={handleInputChange}
                 required
                 placeholder="Enter your blog title"
                 className="w-full p-3 rounded-md border-2 border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -66,6 +126,13 @@ const BlogPublishForm = () => {
                 onChange={handleImageChange}
                 className="w-full p-3 rounded-md border-2 border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="mt-4 w-full h-auto rounded-lg"
+                />
+              )}
             </div>
 
             {/* Story Textarea */}
@@ -78,8 +145,8 @@ const BlogPublishForm = () => {
               <textarea
                 id="story"
                 name="story"
-                value={story}
-                onChange={handleStoryChange}
+                value={formData.story}
+                onChange={handleInputChange}
                 required
                 placeholder="Write your story here"
                 rows="6"
