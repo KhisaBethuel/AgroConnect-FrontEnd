@@ -46,7 +46,9 @@ const App = () => {
           <Features />
           <ExpertsSection />
           <BlogsSection />
+          
           <Footer />
+
         </>
       )}
     </div>
