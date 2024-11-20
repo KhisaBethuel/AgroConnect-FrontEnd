@@ -45,8 +45,8 @@ const ReadingPage = () => {
 
         {/* Author Info */}
         <div className="px-6 sm:px-8 py-4 flex items-center space-x-4 border-b border-green-100">
-          <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
+          <img00
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=1"
             alt="Victor Shape"
             className="w-12 h-12 rounded-full object-cover border-2 border-green-200"
           />
@@ -90,7 +90,6 @@ const ReadingPage = () => {
           />
         </div>
 
-        
         <div className="px-6 sm:px-8 py-8">
           <div className="prose max-w-none">
             <p className="text-gray-700 text-lg leading-relaxed mb-6">

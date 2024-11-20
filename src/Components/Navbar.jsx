@@ -5,14 +5,14 @@ import React from "react";
 export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
-const handleAuthClick = () => {
-  if (isLoggedIn) {
-    setIsLoggedIn(false);
-    navigate("/");
-  } else {
-    navigate("/signup");
-  }
-};
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      setIsLoggedIn(false);
+      navigate("/");
+    } else {
+      navigate("/signup");
+    }
+  };
 
   return (
     <nav className="navbar">
