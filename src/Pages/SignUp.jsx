@@ -28,16 +28,39 @@ function SignUp({ setIsLoggedIn }) {
     password: false,
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid) {
-      console.log({ name, email, password });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      setIsLoggedIn(true);
-      navigate("/blogs");
+  if (isFormValid) {
+    try {
+      const response = await fetch("http://127.0.0.1:8081/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: name,
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        setIsLoggedIn(true);
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData.errors);
+        alert(errorData.errors.join(", "));
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Signup failed. Please try again.");
     }
-  };
-
+  }
+};
   const nameValidation = {
     isValid: name.length >= 2 && /^[a-zA-Z\s]*$/.test(name),
     message: "Name must be at least 2 characters and contain only letters",

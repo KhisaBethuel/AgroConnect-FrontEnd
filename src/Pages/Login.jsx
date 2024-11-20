@@ -11,6 +11,7 @@ function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState({ email: false, password: false });
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
 
   const emailValidation = {
@@ -25,13 +26,33 @@ function Login({ setIsLoggedIn }) {
 
   const isFormValid = emailValidation.isValid && passwordValidation.isValid;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isFormValid) {
-      console.log({ email, password });
 
-      setIsLoggedIn(true);
-      navigate("/blogs");
+    if (!isFormValid) return;
+
+    try {
+      const response = await fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("accessToken", data["access token"]);
+        localStorage.setItem("refreshToken", data["refresh token"]);
+        setIsLoggedIn(true);
+        navigate("/blogs");
+      } else {
+        setErrorMessage(data.errors ? data.errors[0] : "Login failed");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again.");
+      console.error("Login error:", error);
     }
   };
 

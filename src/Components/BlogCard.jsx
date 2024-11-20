@@ -5,7 +5,6 @@ import React from "react";
 const BlogCard = ({
   id,
   image,
-  category,
   title,
   likes,
   views,
@@ -26,9 +25,6 @@ const BlogCard = ({
       />
 
       <div className="blog-content p-4">
-        <span className="category text-sm text-green-700 font-medium">
-          {category}
-        </span>
         <h2
           className="blog-title text-lg font-semibold mt-2 cursor-pointer hover:underline"
           onClick={handleNavigate}>
