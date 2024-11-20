@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import Navbar from '../Components/Navbar';
-
+import React from "react";
 const BlogPublishForm = () => {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
@@ -24,7 +25,7 @@ const BlogPublishForm = () => {
 };
 
 return (
-  <>
+  <div className='pt-20'>
     <Navbar />
     <div className="min-h-screen bg-white flex items-center justify-center py-8">
       <div className="bg-darkgreen w-full max-w-xl p-6 rounded-lg shadow-lg">
@@ -98,7 +99,7 @@ return (
         </form>
       </div>
     </div>
-  </>
+  </div>
 );
 };
 

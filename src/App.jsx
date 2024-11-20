@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Navbar from "./Components/Navbar";
@@ -9,10 +11,10 @@ import SignUp from "./Pages/SignUp";
 import Login from "./Pages/Login";
 import Blog from "./Pages/Blog";
 import { useState } from "react";
-import ChatInterface from "./Pages/ChatInterface"
+import ChatInterface from "./Pages/ChatInterface";
 import ProfilePage from "./Pages/ProfilePage";
 import ReadingPage from "./Pages/ReadingPage";
-import BlogPublish from "./Pages/BlogPublishForm"
+import BlogPublish from "./Pages/BlogPublishForm";
 import ExpertsPage from "./Pages/ExpertsPage";
 import CommunityPage from "./Pages/CommunityPage";
 import { BlogsSection } from "./Components/BlogsSection";
@@ -31,7 +33,10 @@ const App = () => {
             path="/signup"
             element={<SignUp setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          />
           <Route path="/blogs" element={<Blog />} />
           <Route path="/communitychat" element={<ChatInterface />} />
           <Route path="/profile" element={<ProfilePage />} />
@@ -46,9 +51,8 @@ const App = () => {
           <Features />
           <ExpertsSection />
           <BlogsSection />
-          
-          <Footer />
 
+          <Footer />
         </>
       )}
     </div>
