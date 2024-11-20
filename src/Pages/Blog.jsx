@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BlogCard from "../Components/BlogCard";
+import blogData from "../constants/BlogData";
 
 const Blog = () => {
     const [blog, setBlog] = useState([]);
@@ -8,26 +9,30 @@ const Blog = () => {
     const [query, setQuery] = useState("");
 
     useEffect(() => {
-        fetch("https://safarivendors-backend.vercel.app/products")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                const blogsWithImages = data.filter((item) => item.image); // Filter to only include items with images
-                setBlog(blogsWithImages); 
-                setFilteredBlog(blogsWithImages); 
-            })
-            .catch((error) => {
-                console.error("Failed to fetch blogs:", error);
-            });
+        // fetch("https://safarivendors-backend.vercel.app/products")
+        //     .then((res) => {
+        //         if (!res.ok) {
+        //             throw new Error("Network response was not ok");
+        //         }
+        //         return res.json();
+        //     })
+        //     .then((data) => {
+        //         const blogsWithImages = data.filter((item) => item.image); // Filter to only include items with images
+        //         setBlog(blogsWithImages); 
+        //         setFilteredBlog(blogsWithImages); 
+        //     })
+        //     .catch((error) => {
+        //         console.error("Failed to fetch blogs:", error);
+        //     });
+        const blogsWithImages = blogData.filter((item) => item.image);
+        setBlog(blogsWithImages);
+        setFilteredBlog(blogsWithImages);
     }, []);
 
     useEffect(() => {
+        
         const results = blog.filter((blog) =>
-            blog.name.toLowerCase().includes(searchTerm.toLowerCase())
+            blog.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredBlog(results);
     }, [searchTerm, blog]);
@@ -65,7 +70,7 @@ const Blog = () => {
                         key={blog.id}
                         image={blog.image}
                         category={blog.category}
-                        title={blog.name}
+                        title={blog.title}
                         likes={blog.likes}
                         views={blog.views}
                     />

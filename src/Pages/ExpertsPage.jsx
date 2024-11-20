@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Navbar from '../Components/Navbar';
 
-function ExpertsCard() {
+function ExpertsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const experts = [
     {
@@ -31,51 +32,71 @@ function ExpertsCard() {
   );
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Header */}
-      <header className="bg-green-700 text-white shadow p-4">
-        <h1 className="text-2xl font-bold text-center">List Of Experts</h1>
-        <h2 className="text-lg font-semibold text-center">AgroConnect</h2>
-     
-      </header>
+    <>
+      <Navbar />
+      <div className="bg-gray-100 min-h-screen">
+        {/* Header */}
+        <header className="bg-green-700 text-white shadow p-4">
+          <h1 className="text-2xl font-bold text-center">List Of Experts</h1>
+          <h2 className="text-lg font-semibold text-center">AgroConnect</h2>
+        </header>
 
-      <div className="container mx-auto py-8 px-6">
-        <h2 className="text-2xl font-bold text-center mb-4">Get to know and hear from the experts</h2>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md">
-            <div className="flex mb-4">
-              <input
-                type="text"
-                placeholder="Search by Name"
-                className="border border-gray-300 rounded-l-lg px-4 py-2 w-full"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-r-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-            <div className="grid grid-cols-1 gap-4">
-              {filteredExperts.map((expert, index) => (
-                <div className="flex items-center mb-4" key={index}>
-                  <img src={expert.imageUrl} alt={expert.name} className="w-20 h-20 rounded-full mr-4" />
-                  <div>
-                    <h2 className="text-lg font-bold">{expert.name}</h2>
-                    <p className="text-gray-600">{expert.expertise}</p>
+        <div className="container mx-auto py-8 px-6">
+          <h2 className="text-2xl font-bold text-center mb-4">
+            Get to know and hear from the experts
+          </h2>
+          <div className="flex justify-center">
+            <div className="w-full max-w-md">
+              <div className="flex mb-4">
+                <input
+                  type="text"
+                  placeholder="Search by Name"
+                  className="border border-gray-300 rounded-l-lg px-4 py-2 w-full"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-r-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                {filteredExperts.map((expert, index) => (
+                  <div className="flex items-center mb-4" key={index}>
+                    <img
+                      src={expert.imageUrl}
+                      alt={expert.name}
+                      className="w-20 h-20 rounded-full mr-4"
+                    />
+                    <div>
+                      <h2 className="text-lg font-bold">{expert.name}</h2>
+                      <p className="text-gray-600">{expert.expertise}</p>
+                    </div>
+                    <div className="ml-4">
+                      <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+                        Follow
+                      </button>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                  <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Follow</button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default ExpertsCard;
+export default ExpertsPage;
