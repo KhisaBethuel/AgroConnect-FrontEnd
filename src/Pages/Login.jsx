@@ -12,15 +12,6 @@ function Login({ setIsLoggedIn }) {
   const [touched, setTouched] = useState({ email: false, password: false });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid) {
-      console.log({ email, password });
-
-      setIsLoggedIn(true);
-      navigate("/blogs");
-    }
-  };
 
   const emailValidation = {
     isValid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
@@ -34,10 +25,24 @@ function Login({ setIsLoggedIn }) {
 
   const isFormValid = emailValidation.isValid && passwordValidation.isValid;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid) {
+      console.log({ email, password });
+
+      setIsLoggedIn(true);
+      navigate("/blogs");
+    }
+  };
+
+
+  const handleCommunitiesClick = () => {
+    navigate("/communitychat");
+  };
+
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative bg-gray-200">
       <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-2xl bg-center bg-no-repeat bg-[length:90%_90%]" />
