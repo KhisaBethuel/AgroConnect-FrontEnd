@@ -18,7 +18,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
+      <div className="navbar-container ">
         <div className="logo-container">
           <img
             src="https://png.pngtree.com/element_our/sm/20180411/sm_5ace0628840fa.png"
