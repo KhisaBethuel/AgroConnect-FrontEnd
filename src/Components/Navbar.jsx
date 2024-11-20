@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { NavLink, useNavigate } from "react-router-dom";
-
+import React from "react";
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
