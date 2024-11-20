@@ -96,7 +96,7 @@ function ProfilePage() {
     setShowFollowersModal(true);
     try {
       setLoadingFollowers(true);
-      const response = await fetch("/api/followers");
+      const response = await fetch("#");
       const data = await response.json();
       setFollowers(data);
     } catch (error) {
@@ -110,7 +110,7 @@ function ProfilePage() {
     setShowFollowingModal(true);
     try {
       setLoadingFollowing(true);
-      const response = await fetch("/api/following");
+      const response = await fetch("#");
       const data = await response.json();
       setFollowing(data);
     } finally {
