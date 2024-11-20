@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Navbar from "../Components/Navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 import { Upload, X, Users, MessageSquare, Share2, Heart, Eye, Edit2, Trash2 } from 'lucide-react';
 
 function ProfilePage() {
@@ -106,7 +108,8 @@ function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    
+      <div className="pt-20 min-h-screen bg-gray-50">
       <Navbar />
       
       {/* Hero Section */}
@@ -329,9 +332,12 @@ function ProfilePage() {
               </div>
             )}
           </div>
-        </div>
+
+        
+        
+      </div>
       )}
-    </div>
+      </div>
   );
 }
 

@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { 
   Sprout, Users, Wheat, Tractor, Cloud, Sun, 
   Leaf, MessageCircle, Share2, Filter
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
+import React from "react";
 
 function CommunityPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -118,7 +120,8 @@ function CommunityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    
+    <div className='pt-20'>
       <Navbar />
       
       {/* Hero Section */}

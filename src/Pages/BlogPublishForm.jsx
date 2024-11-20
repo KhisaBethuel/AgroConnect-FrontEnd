@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import Navbar from '../Components/Navbar';
+import React from "react";
 import { Upload, Image as ImageIcon, Send, X } from 'lucide-react';
 
 const BlogPublishForm = () => {
@@ -78,55 +80,33 @@ const BlogPublishForm = () => {
     console.log('Form Submitted:', submitData);
   };
 
-  return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Header Section */}
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-green-800 mb-4">Share Your Agricultural Story</h1>
-            <p className="text-gray-600">Inspire and educate the farming community with your knowledge and experiences</p>
+return (
+  <div className='pt-20'>
+    <Navbar />
+    <div className="min-h-screen bg-white flex items-center justify-center py-8">
+      <div className="bg-darkgreen w-full max-w-xl p-6 rounded-lg shadow-lg">
+        <h1 className="text-2xl text-center text-white font-bold mb-6">
+          Publish Your Blog
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Blog Title */}
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-lg text-white font-medium mb-2">
+              Blog Title:
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={title}
+              onChange={handleTitleChange}
+              required
+              placeholder="Enter your blog title"
+              className="w-full p-3 rounded-md border-2 border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              {/* Title Input */}
-              <div className="mb-6">
-                <label htmlFor="title" className="block text-lg font-semibold text-gray-700 mb-2">
-                  Blog Title
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  placeholder="Enter an engaging title for your blog"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  required
-                />
-              </div>
-
-              {/* Category Selection */}
-              <div className="mb-6">
-                <label htmlFor="category" className="block text-lg font-semibold text-gray-700 mb-2">
-                  Category
-                </label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  required
-                >
-                  <option value="">Select a category</option>
-                  {categories.map(category => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
-                </select>
-              </div>
 
               {/* Image Upload */}
               <div className="mb-6">
@@ -220,20 +200,19 @@ const BlogPublishForm = () => {
                 />
               </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition duration-300"
-              >
-                <Send size={20} />
-                Publish Blog
-              </button>
-            </div>
-          </form>
-        </div>
+          {/* Submit Button */}
+          <div className="text-center">
+            <button
+              type="submit"
+              className="w-full py-3 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+              Publish Blog
+            </button>
+          </div>
+        </form>
       </div>
-    </>
-  );
+    </div>
+  </div>
+);
 };
 
 export default BlogPublishForm;

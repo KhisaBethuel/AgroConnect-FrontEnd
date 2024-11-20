@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Search, TrendingUp, BookOpen, Leaf, Filter } from "lucide-react";
 import BlogCard from "../Components/BlogCard";
 import blogData from "../constants/BlogData";
+import React from "react";
 import Navbar from "../Components/Navbar";
+
 
 const Blog = () => {
     const [blog, setBlog] = useState([]);
@@ -36,10 +39,10 @@ const Blog = () => {
         setFilteredBlog(results);
     }, [searchTerm, blog, selectedCategory]);
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setSearchTerm(query);
-    };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchTerm(query);
+  };
 
     const getFeaturedBlogs = () => {
         return blog.sort((a, b) => b.views - a.views).slice(0, 3);

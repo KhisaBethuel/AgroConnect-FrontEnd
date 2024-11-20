@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineLike, AiOutlineComment } from "react-icons/ai";
+import React from "react";
 
 const ReadingPage = () => {
   const { id } = useParams();
@@ -32,7 +34,7 @@ const ReadingPage = () => {
     return <div>Loading...</div>;
   }
   return (
-    <article className="bg-white rounded-xl shadow-md overflow-hidden">
+    <article className="bg-white rounded-xl shadow-md overflow-hidden pt-20">
       {/* Title */}
       <div className="max-w-3xl mx-auto">
         <div className="px-6 sm:px-8 pt-8">
