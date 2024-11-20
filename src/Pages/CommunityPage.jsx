@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import Navbar from '../Components/Navbar';
+import React from "react";
 
 function CommunityPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,7 +35,7 @@ function CommunityPage() {
 
   return (
 
-    <>
+    <div className='pt-20'>
       <Navbar />
       <div className="bg-gray-100 min-h-screen">
         {/* Header */}
@@ -98,7 +100,7 @@ function CommunityPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
