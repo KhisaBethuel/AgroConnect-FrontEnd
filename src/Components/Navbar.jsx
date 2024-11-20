@@ -32,6 +32,9 @@ const handleAuthClick = () => {
           <NavLink to="/experts" className="nav-link">
             Experts
           </NavLink>
+          <NavLink to="/communities" className="nav-link">
+            Communities
+          </NavLink>
           <NavLink to="/blogs" className="nav-link">
             Blogs
           </NavLink>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import React from "react";
 
 function SignUp({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -31,8 +33,8 @@ function SignUp({ setIsLoggedIn }) {
     if (isFormValid) {
       console.log({ name, email, password });
 
-      setIsLoggedIn(true); 
-      navigate("/blogs"); 
+      setIsLoggedIn(true);
+      navigate("/blogs");
     }
   };
 
@@ -82,22 +84,22 @@ function SignUp({ setIsLoggedIn }) {
   };
 
   return (
-    <>
+    <div className="pt-10">
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center p-4 relative bg-white">
-        <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-2xl bg-center bg-no-repeat bg-[length:90%_90%]" />
-        <div className="absolute inset-0 bg-black/20" />
+      <div className="min-h-screen flex items-center justify-center p-4 relative bg-red">
+        <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-b-lg bg-center bg-no-repeat bg-[length:90%_90%] " />
+        <div className="absolute inset-0 bg-black/70" />
 
-        <div className="max-w-md space-y-8 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 relative">
+        <div className="w-full max-w-2xl mx-auto space-y-20 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 relative">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-extrabold text-white drop-shadow-lg">
+            <h2 className="text-6xl font-extrabold text-white drop-shadow-lg">
               Get Started
             </h2>
             <p className="text-sm text-white/80">
               Already have an Account?{" "}
               <Link
                 to="/login"
-                className="text-white hover:text-white/80 underline">
+                className="hover:text-white/80 underline text-green-500 font-extrabold">
                 Log in
               </Link>
             </p>
@@ -267,7 +269,7 @@ function SignUp({ setIsLoggedIn }) {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

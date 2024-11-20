@@ -1,164 +1,227 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
+/* eslint-disable no-unused-vars */
+import Navbar from "../Components/Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
-// eslint-disable-next-line react/prop-types
-function Login({ setIsLoggedIn }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [touched, setTouched] = useState({ email: false, password: false });
-  const navigate = useNavigate()
+function ProfilePage() {
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [loadingFollowers, setLoadingFollowers] = useState(false);
+  const [loadingFollowing, setLoadingFollowing] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid) {
-      console.log({ email, password });
-
-      setIsLoggedIn(true);
-      navigate("/blogs"); 
+  const fetchFollowers = async () => {
+    try {
+      setLoadingFollowers(true);
+      const response = await fetch("/api/followers");
+      const data = await response.json();
+      setFollowers(data);
+    } catch (error) {
+      console.error("Error fetching followers:", error);
+    } finally {
+      setLoadingFollowers(false);
     }
   };
 
-  const emailValidation = {
-    isValid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
-    message: 'Please enter a valid email address'
+  const fetchFollowing = async () => {
+    try {
+      setLoadingFollowing(true);
+      const response = await fetch("/api/following");
+      const data = await response.json();
+      setFollowing(data);
+    } catch (error) {
+      console.error("Error fetching following:", error);
+    } finally {
+      setLoadingFollowing(false);
+    }
   };
 
-  const passwordValidation = {
-    isValid: password.length >= 8,
-    message: 'Password must be at least 8 characters'
+  const handleFollowersClick = () => {
+    setShowFollowersModal(true);
+    fetchFollowers();
   };
 
-  const isFormValid = emailValidation.isValid && passwordValidation.isValid;
-
-  const handleBlur = (field) => {
-    setTouched(prev => ({ ...prev, [field]: true }));
+  const handleFollowingClick = () => {
+    setShowFollowingModal(true);
+    fetchFollowing();
   };
 
+  const handleCommunitiesClick = () => {
+    navigate("/communitychat");
+  };
+
+  const closeModal = () => {
+    setShowFollowersModal(false);
+    setShowFollowingModal(false);
+  };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative bg-gray-200">
-      <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-2xl bg-center bg-no-repeat bg-[length:90%_90%]" />
-      <div className="absolute inset-0 bg-black/20" />
-      
-      <div className="max-w-md space-y-8 bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 relative">
-        <div className="text-center space-y-2">
-          <h2 className="text-3xl font-extrabold text-white drop-shadow-lg">
-            Welcome Back
-          </h2>
-          <p className="text-sm text-white/80">
-            New here? <a href="/signup" className="text-white hover:text-white/80 underline">Create an account</a>
-          </p>
-        </div>
+    <div className="pt-20">
+      <Navbar />
+      <div className="bg-white min-h-screen pt-24">
+        {/* Profile Section */}
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <div className="relative group">
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-5 w-5 transition-colors group-hover:text-white/90 z-10" />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => handleBlur('email')}
-                  className={`pl-10 w-full px-4 py-3 border ${
-                    touched.email && !emailValidation.isValid 
-                      ? 'border-red-400/50' 
-                      : 'border-white/20'
-                  } rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent bg-white/10 backdrop-blur-sm transition-all hover:bg-white/20`}
-                  placeholder="Email"
+        <section className="bg-green-200 rounded-lg shadow p-12 w-4/4 md:w-3/3">
+          <div className="text-center">
+            <div className="flex items-center justify-center">
+              <div className="mb-6">
+                <img
+                  src="https://thumbs.dreamstime.com/b/happy-african-farmer-working-countryside-holding-wood-box-fresh-vegetables-215052594.jpg"
+                  alt="User Profile Image"
+                  className="w-48 h-48 rounded-full object-cover"
                 />
               </div>
-              {touched.email && !emailValidation.isValid && (
-                <p className="text-red-500 text-sm pl-2">{emailValidation.message}</p>
-              )}
-            </div>
 
-            <div className="space-y-1">
-              <div className="relative group">
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-5 w-5 transition-colors group-hover:text-white/90 z-10" />
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={() => handleBlur('password')}
-                  className="pl-10 w-full px-4 py-3 border border-white/20 rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent bg-white/10 backdrop-blur-sm transition-all hover:bg-white/20"
-                  placeholder="Password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white/90 transition-colors z-10"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-              {touched.password && !passwordValidation.isValid && (
-                <p className="text-red-500 text-sm pl-2">{passwordValidation.message}</p>
-              )}
-              <div className="flex justify-end">
-                <a href="/forgot-password" className="text-sm text-white hover:text-white/80 underline">
-                  Forgot password?
-                </a>
+              <div className="ml-6">
+                <h2 className="text-2xl font-bold text-green-700 mb-4">
+                  Eng Terry Otieno{" "}
+                  <button className="bg-green-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Edit Profile
+                  </button>
+                </h2>
+                <p className="text-gray-600 mb-10">
+                  <span
+                    onClick={handleFollowersClick}
+                    className="cursor-pointer hover:underline">
+                    Followers: {followers.length}
+                  </span>
+                  <span className="mx-4">|</span>
+                  <span
+                    onClick={handleFollowingClick}
+                    className="cursor-pointer hover:underline">
+                    Following: {following.length}
+                  </span>
+                  <span className="mx-4">|</span>
+                  <span
+                    onClick={handleCommunitiesClick}
+                    className="cursor-pointer hover:underline">
+                    Communities
+                  </span>
+                </p>
+
+                {/* ... other profile information ... */}
               </div>
             </div>
           </div>
+        </section>
 
-          <div>
+        {showFollowersModal && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-8 rounded-lg w-1/3">
+              <h2 className="text-2xl font-bold text-green-700 mb-4">
+                Followers
+              </h2>
+              {loadingFollowers ? (
+                <p>Loading...</p>
+              ) : (
+                <ul>
+                  {followers.map((follower, index) => (
+                    <li key={index}>{follower.name}</li>
+                  ))}
+                </ul>
+              )}
+              <button
+                onClick={closeModal}
+                className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showFollowingModal && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-8 rounded-lg w-1/3">
+              <h2 className="text-2xl font-bold text-green-700 mb-4">
+                Following
+              </h2>
+              {loadingFollowing ? (
+                <p>Loading...</p>
+              ) : (
+                <ul>
+                  {following.map((person, index) => (
+                    <li key={index}>{person.name}</li>
+                  ))}
+                </ul>
+              )}
+              <button
+                onClick={closeModal}
+                className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Posts Section */}
+        <section className="container mx-auto py-8 px-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold text-green-700">Posts</h2>
             <button
-              type="submit"
-              disabled={!isFormValid}
-              className={`group relative w-full flex justify-center py-3 px-4 border border-white/20 text-sm font-medium rounded-xl text-white ${
-                isFormValid 
-                  ? 'bg-white/20 hover:bg-white/30' 
-                  : 'bg-white/10 cursor-not-allowed'
-              } focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 backdrop-blur-sm`}
-            >
-              Sign In
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              onClick={() => navigate("/publish")}
+              className="text-green-700 hover:text-green-900 font-bold">
+              Write
             </button>
           </div>
-
-          <div className="flex items-center gap-4">
-            <div className="flex-1 border-t border-white/20"></div>
-            <span className="text-white/80 text-sm">or</span>
-            <div className="flex-1 border-t border-white/20"></div>
-          </div>
-
-          <div className="mt-6">
-           <a href="https://accounts.google.com"> <button
-              type="button"
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-white/20 rounded-xl text-white bg-white/10 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 backdrop-blur-sm"
-            >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="bg-white rounded shadow p-4">
               <img
-                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                alt="Google"
-                className="h-5 w-5"
+                src="https://farmsquare.ng/wp-content/uploads/2021/08/IMG_20210312_111515.jpg"
+                alt="Post 1 Image"
+                className="w-full rounded-t-lg"
               />
-              Continue with Google
-            </button>
-            </a>
+              <h3 className="text-xl font-bold mt-4">
+                Sustainable Farming Practice
+              </h3>
+              <p className="text-gray-600 mt-2">
+                Likes: 1.3K<span className="mx-4">|</span> Views: 2.1K
+                <span className="mx-4">|</span>{" "}
+                <button className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+                  Delete
+                </button>
+              </p>
+            </div>
+            {/* ... other posts ... */}
+            <div className="bg-white rounded shadow p-4">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsTohw6mrUBl8GTN_eEyqEbjjosh5PaEpvGQ&s"
+                alt="Post 1 Image"
+                className="w-full rounded-t-lg"
+              />
+              <h3 className="text-xl font-bold mt-4">
+                Pest and Pesticide Management
+              </h3>
+              <p className="text-gray-600 mt-2">
+                Likes: 1.3K <span className="mx-4">|</span> Views: 2.1K
+                <span className="mx-4">|</span>{" "}
+                <button className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+                  Delete
+                </button>
+              </p>
+            </div>
+
+            <div className="bg-white rounded shadow p-4">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv_UhSa5gzw554t8-CkQ8q9exLeFkVnvnnxQ&s"
+                alt="Post 1 Image"
+                className="w-full rounded-t-lg"
+              />
+              <h3 className="text-xl font-bold mt-4">Plant distribution</h3>
+              <p className="text-gray-600 mt-2">
+                Likes: 1.3K <span className="mx-4">|</span> Views: 2.1K
+                <span className="mx-4">|</span>
+                <button className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+                  Delete
+                </button>
+              </p>
+            </div>
           </div>
-        </form>
+        </section>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default ProfilePage;

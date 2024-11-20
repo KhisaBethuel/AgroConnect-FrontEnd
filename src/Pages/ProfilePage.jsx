@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Navbar from "../Components/Navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function ProfilePage() {
   const [showFollowersModal, setShowFollowersModal] = useState(false);
@@ -9,7 +11,7 @@ function ProfilePage() {
   const [following, setFollowing] = useState([]);
   const [loadingFollowers, setLoadingFollowers] = useState(false);
   const [loadingFollowing, setLoadingFollowing] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchFollowers = async () => {
     try {
@@ -56,7 +58,7 @@ function ProfilePage() {
     setShowFollowingModal(false);
   };
   return (
-    <>
+    <div className="pt-20">
       <Navbar />
       <div className="bg-white min-h-screen pt-24">
         {/* Profile Section */}
@@ -218,7 +220,7 @@ function ProfilePage() {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 }
 
