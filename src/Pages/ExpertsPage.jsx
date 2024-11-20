@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from '../Components/Navbar';
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Search, MapPin, MessageCircle, UserPlus } from 'lucide-react';
+import { Search, MapPin, UserPlus } from 'lucide-react';
 
 function ExpertsPage() {
   const [searchTerm, setSearchTerm] = useState('');

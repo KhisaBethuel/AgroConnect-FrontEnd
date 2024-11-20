@@ -90,7 +90,6 @@ const ReadingPage = () => {
           />
         </div>
 
-        
         <div className="px-6 sm:px-8 py-8">
           <div className="prose max-w-none">
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
