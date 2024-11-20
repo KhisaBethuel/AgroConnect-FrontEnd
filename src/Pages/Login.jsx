@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
 
-function Login() {
+// eslint-disable-next-line react/prop-types
+function Login({ setIsLoggedIn }) {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormValid) {
       console.log({ email, password });
+
+      setIsLoggedIn(true);
+      navigate("/blogs"); 
     }
   };
 
