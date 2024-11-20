@@ -33,8 +33,8 @@ function SignUp({ setIsLoggedIn }) {
     if (isFormValid) {
       console.log({ name, email, password });
 
-      setIsLoggedIn(true); 
-      navigate("/blogs"); 
+      setIsLoggedIn(true);
+      navigate("/blogs");
     }
   };
 

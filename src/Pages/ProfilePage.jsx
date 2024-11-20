@@ -11,7 +11,7 @@ function ProfilePage() {
   const [following, setFollowing] = useState([]);
   const [loadingFollowers, setLoadingFollowers] = useState(false);
   const [loadingFollowing, setLoadingFollowing] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchFollowers = async () => {
     try {
