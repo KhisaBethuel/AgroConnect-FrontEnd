@@ -88,18 +88,20 @@ function ExpertsPage() {
                   </div>
                 </div>
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col gap-2 items-center">
                   <h3 className="text-xl font-bold text-gray-800 mb-2">{expert.name}</h3>
                   <p className="text-green-700 font-semibold mb-2">{expert.expertise}</p>
                   
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    <span className="text-sm">{expert.location}</span>
-                  </div>
+                 
                   
                   <div className="text-sm text-gray-600 mb-4">
                     <p><strong>Specialization:</strong> {expert.specialization}</p>
                     <p><strong>Experience:</strong> {expert.experience}</p>
+                  </div>
+                  
+                   <div className="flex items-center text-gray-600 mb-2">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    <span className="text-sm">{expert.location}</span>
                   </div>
                   
                   <div className="flex gap-2">

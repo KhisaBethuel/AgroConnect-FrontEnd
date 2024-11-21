@@ -4,19 +4,19 @@ import { ExpertCard } from "./ExpertCard";
 
 const experts = [
   {
-    name: "Eng Norah Seini",
+    name: "Eng. Norah Seini",
     title: "Agricultural Engineer",
     imageUrl:
       "https://i.pinimg.com/236x/94/50/29/945029307ecdb00b8c83475f9a32e1e5.jpg",
   },
   {
-    name: "leo messi",
+    name: "Dr. Leo messi",
     title: "Soil Engineer",
     imageUrl:
       "https://i.pinimg.com/236x/af/2f/f5/af2ff5bbac0fc1b41277173f7f7e807e.jpg",
   },
   {
-    name: "Victor Shape",
+    name: "Prof. Victor Shape",
     title: "Agricultural Engineer",
     imageUrl:
       "https://i.pinimg.com/236x/fe/17/ed/fe17ed25cb823cef881cd6eb3490d77b.jpg",
