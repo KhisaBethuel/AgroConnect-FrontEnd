@@ -22,13 +22,13 @@ const BlogCard = ({
     const fetchLikesAndComments = async () => {
       try {
         const likesResponse = await fetch(
-          `http://127.0.0.1:8081/likes/post/${id}`
+          `https://agritech-backend-922n.onrender.com/likes/post/${id}`
         );
         const likesData = await likesResponse.json();
         setLikeCount(likesData.length); 
 
         const commentsResponse = await fetch(
-          `http://127.0.0.1:8081/comments/${id}`
+          `https://agritech-backend-922n.onrender.com/comments/${id}`
         );
         const commentsData = await commentsResponse.json();
         setCommentCount(commentsData.length); 

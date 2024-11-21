@@ -34,7 +34,7 @@ function SignUp({ setIsLoggedIn }) {
   if (isFormValid) {
     try {
       const response = await fetch(
-        "https://agritech-backend-lbq8.onrender.com/signup",
+        "https://agritech-backend-922n.onrender.com/signup",
         {
           method: "POST",
           headers: {
