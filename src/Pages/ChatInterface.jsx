@@ -122,7 +122,6 @@ const ChatApp = () => {
 
   return (
     <div className="pt-20">
-      <Navbar />
       <div className="chat-app">
         <div className="sidebar">
           <header className="sidebar-header">

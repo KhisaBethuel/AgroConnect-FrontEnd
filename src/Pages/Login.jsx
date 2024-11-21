@@ -32,17 +32,21 @@ function Login({ setIsLoggedIn }) {
     if (!isFormValid) return;
 
     try {
-      const response = await fetch("http://localhost:8081/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://agritech-backend-lbq8.onrender.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
+        const expirationTime = Date.now() + 3600 * 1000; 
         localStorage.setItem("accessToken", data["access token"]);
         localStorage.setItem("refreshToken", data["refresh token"]);
         setIsLoggedIn(true);
@@ -65,7 +69,7 @@ function Login({ setIsLoggedIn }) {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative bg-gray-200">
+    <div className="min-h-screen flex items-center justify-center p-4 relative bg-gray-200 pt-10">
       <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-2xl bg-center bg-no-repeat bg-[length:90%_90%]" />
       <div className="absolute inset-0 bg-black/70" />
 

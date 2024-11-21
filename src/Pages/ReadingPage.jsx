@@ -1,66 +1,229 @@
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { AiOutlineEye, AiOutlineLike, AiOutlineComment } from "react-icons/ai";
+import {
+  AiOutlineEye,
+  AiFillHeart,
+  AiOutlineComment,
+  AiFillDelete,
+  AiOutlineEdit,
+} from "react-icons/ai";
 import React from "react";
 
 const ReadingPage = () => {
   const { id } = useParams();
 
   const [blog, setBlog] = useState(null);
+  const [likeCount, setLikeCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // fetch(`/api/blogs/${id}`).then(response => response.json()).then(data => setBlog(data));
+    const fetchBlog = async () => {
+      try {
+        const response = await fetch(
+          `https://agritech-backend-lbq8.onrender.com/blogs/public/${id}`
+        );
+        const data = await response.json();
+        setBlog(data);
+        setLikeCount(data.likes);
+        setIsLiked(data.isLiked);
+        setComments(data.comments || []);
+      } catch (error) {
+        console.error("Error fetching blog data:", error);
+      }
+    };
 
-    setBlog({
-      title:
-        "Bringing Farmers to the Table for Conversations about River Health",
-      author: "Victor Shape",
-      content: `Water scarcity has become an increasingly pressing issue across the globe, and nowhere is it more evident than in the Western United States. Farmers, often the stewards of our land and resources, are at the frontlines of finding sustainable solutions to ensure water remains accessible for agriculture while also safeguarding the health of our rivers and ecosystems. 
-
-      Kyler Brown, a small farmer and rancher in Del Norte, Colorado, has spent much of his career discussing the realities of drought. "I'm sick of the D word," he says. "To say you're in a drought of 19 or 20 years, it seems like you're not in a drought anymore." As water resources continue to dwindle, the conversation is shifting from survival to innovation. Farmers like Kyler are exploring new approaches to water conservation, river health management, and crop resilience in the face of a changing climate. 
-  
-      Through collaboration, education, and the sharing of innovative practices, farmers are bringing fresh perspectives to the table to tackle one of the most crucial challenges of our time: the health of our rivers. The discussions taking place today are not just about conserving water, but about preserving the lifeblood of agriculture and ensuring that future generations will have access to the resources they need to thrive.
-
-      The conversation is far from over, and as Kyler puts it, "We have a responsibility to future generations of farmers to take care of the land and water now."`,
-      likes: 1300,
-      views: 2100,
-      comments: 24,
-      image: "https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?w=1200",
-    });
+    fetchBlog();
   }, [id]);
+
+  const toggleLike = async () => {
+    if (isLiked) {
+      await deleteLike();
+    } else {
+      await likePost();
+    }
+  };
+
+  const likePost = async () => {
+    try {
+      const response = await fetch(
+        `https://agritech-backend-lbq8.onrender.com/likes`,
+        {
+          method: "POST",
+          body: JSON.stringify({ post_id: id }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error liking post:", errorData?.msg || "Unknown error");
+        return;
+      }
+
+      const updatedData = await response.json();
+      setLikeCount(updatedData.likeCount || likeCount + 1); // Fallback to incrementing
+      setIsLiked(true);
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
+  };
+
+  const deleteLike = async () => {
+    try {
+      const response = await fetch(
+        `https://agritech-backend-lbq8.onrender.com/likes`,
+        {
+          method: "DELETE",
+          body: JSON.stringify({ post_id: id }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error(
+          "Error unliking post:",
+          errorData?.msg || "Unknown error"
+        );
+        return;
+      }
+
+      const updatedData = await response.json();
+      setLikeCount(updatedData.likeCount || Math.max(0, likeCount - 1));
+      setIsLiked(false);
+    } catch (error) {
+      console.error("Error unliking post:", error);
+    }
+  };
+
+  const handleCommentToggle = () => {
+    setIsSidebarVisible((prev) => !prev);
+  };
+
+  const handleNewComment = async () => {
+    if (!commentText.trim()) {
+      setError("Comment cannot be empty.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://agritech-backend-lbq8.onrender.com/comments`,
+        {
+          method: "POST",
+          body: JSON.stringify({ content: commentText, post_id: id }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const newComment = await response.json();
+        setComments([newComment, ...comments]);
+        setCommentText(""); // Clear input field
+        setError(null); // Reset error
+      } else {
+        const errorData = await response.json();
+        setError(errorData?.error || "Error posting comment");
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      setError("Error adding comment");
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const response = await fetch(
+        `https://agritech-backend-lbq8.onrender.com/comments/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        setComments(comments.filter((comment) => comment.id !== commentId));
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
+  const handleEditComment = async (commentId, newContent) => {
+    try {
+      const response = await fetch(
+        `https://agritech-backend-lbq8.onrender.com/comments/${commentId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ content: newContent }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const updatedComment = await response.json();
+        setComments(
+          comments.map((comment) =>
+            comment.id === commentId ? updatedComment : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error editing comment:", error);
+    }
+  };
 
   if (!blog) {
     return <div>Loading...</div>;
   }
+
   return (
     <article className="bg-white rounded-xl shadow-md overflow-hidden pt-20">
-      {/* Title */}
+      {/* Blog content */}
       <div className="max-w-3xl mx-auto">
         <div className="px-6 sm:px-8 pt-8">
           <h1 className="text-3xl font-bold text-green-800 mb-6">
-            Bringing Farmers to the Table for Conversations about River Health
+            {blog.title}
           </h1>
         </div>
 
         {/* Author Info */}
         <div className="px-6 sm:px-8 py-4 flex items-center space-x-4 border-b border-green-100">
-          <img00
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=1"
-            alt="Victor Shape"
+          <img
+            src={blog.authorImage}
+            alt={blog.author}
             className="w-12 h-12 rounded-full object-cover border-2 border-green-200"
           />
           <div>
             <div className="flex items-center space-x-3">
               <h2 className="text-lg font-semibold text-green-800">
-                Victor Shape
+                {blog.author}
               </h2>
               <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm">
                 Expert
               </span>
             </div>
             <p className="text-green-600 text-sm">
-              Published on 9th November 2024
+              Published on {blog.created_at}
             </p>
           </div>
         </div>
@@ -68,45 +231,89 @@ const ReadingPage = () => {
         {/* Engagement Metrics */}
         <div className="px-6 sm:px-8 py-4 flex items-center space-x-6 text-green-600 border-b border-green-100">
           <div className="flex items-center space-x-2">
-            <AiOutlineLike className="text-xl" />
-            <span>1.3K</span>
+            <AiFillHeart
+              className={`text-xl cursor-pointer ${
+                isLiked ? "text-red-600" : "text-gray-500"
+              }`}
+              onClick={toggleLike}
+            />
+            <span>{likeCount}</span>
           </div>
           <div className="flex items-center space-x-2">
             <AiOutlineEye className="text-xl" />
-            <span>2.1K</span>
+            <span>{blog.views}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <AiOutlineComment className="text-xl" />
-            <span>24</span>
+            <AiOutlineComment
+              className="text-xl cursor-pointer"
+              onClick={handleCommentToggle}
+            />
+            <span>{comments.length}</span>
           </div>
         </div>
 
         {/* Featured Image */}
         <div className="relative h-[400px] w-full">
           <img
-            src="https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?w=1200"
-            alt="River Waterfall"
+            src={blog.image}
+            alt="Blog featured"
             className="w-full h-full object-cover"
           />
         </div>
 
+        {/* Blog content */}
         <div className="px-6 sm:px-8 py-8">
           <div className="prose max-w-none">
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              `Im sick of the D word, says Kyler Brown. As a small farmer and
-              rancher in Del Norte, Colorado, he spends a lot of time talking
-              about drought. To say youre in a drought of 19 or 20 years, it
-              seems like youre not in a drought anymore.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
-              The conversation about water scarcity in the West is shifting, and
-              farmers like Brown are at the forefront of new approaches to water
-              conservation and river health management.
+              {blog.content}
             </p>
           </div>
         </div>
       </div>
+
+      {/* Sidebar for comments */}
+      {isSidebarVisible && (
+        <div className="fixed top-0 right-0 h-full w-full md:w-1/3 bg-white shadow-lg p-6 z-50">
+          <h3 className="text-xl font-semibold mb-4">Comments</h3>
+          <div className="comments-list space-y-4">
+            {comments.map((comment) => (
+              <div key={comment.id} className="comment p-2 border-b">
+                <p className="text-sm text-gray-600">{comment.content}</p>
+                <div className="flex items-center space-x-2 mt-2">
+                  <AiOutlineEdit
+                    className="cursor-pointer"
+                    onClick={() =>
+                      handleEditComment(
+                        comment.id,
+                        prompt("Edit comment:", comment.content)
+                      )
+                    }
+                  />
+                  <AiFillDelete
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="comment-input mt-4">
+            <textarea
+              className="w-full p-2 border rounded-md"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Write a comment..."
+            />
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            <button
+              className="mt-2 px-4 py-2 bg-green-600 text-white rounded"
+              onClick={handleNewComment}>
+              Save
+            </button>
+          </div>
+        </div>
+      )}
     </article>
   );
 };

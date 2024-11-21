@@ -33,17 +33,20 @@ function SignUp({ setIsLoggedIn }) {
 
   if (isFormValid) {
     try {
-      const response = await fetch("http://127.0.0.1:8081/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: name,
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        "https://agritech-backend-lbq8.onrender.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: name,
+            email,
+            password,
+          }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +111,6 @@ function SignUp({ setIsLoggedIn }) {
 
   return (
     <div className="pt-10">
-      <Navbar />
       <div className="min-h-screen flex items-center justify-center p-4 relative bg-red">
         <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-b-lg bg-center bg-no-repeat bg-[length:90%_90%] " />
         <div className="absolute inset-0 bg-black/70" />
