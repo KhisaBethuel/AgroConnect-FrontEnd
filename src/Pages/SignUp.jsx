@@ -33,17 +33,20 @@ function SignUp({ setIsLoggedIn }) {
 
   if (isFormValid) {
     try {
-      const response = await fetch("http://127.0.0.1:8081/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: name,
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        "https://agritech-backend-922n.onrender.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: name,
+            email,
+            password,
+          }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

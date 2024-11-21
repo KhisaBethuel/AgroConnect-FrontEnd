@@ -20,7 +20,7 @@ const Blog = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8081/blogs?page=${pagination.page}&per_page=${pagination.per_page}`
+          `https://agritech-backend-922n.onrender.com/blogs?page=${pagination.page}&per_page=${pagination.per_page}`
         );
         const data = await response.json();
         setBlogs(data.blogs);

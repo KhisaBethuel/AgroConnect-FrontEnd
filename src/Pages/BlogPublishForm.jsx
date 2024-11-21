@@ -80,14 +80,17 @@ const BlogPublishForm = () => {
                 image: formData.imageUrl.trim()
             };
 
-            const response = await fetch("http://127.0.0.1:8081/blogs", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-              },
-              body: JSON.stringify(formDataToSend),
-            });
+            const response = await fetch(
+              "https://agritech-backend-922n.onrender.com/blogs",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(formDataToSend),
+              }
+            );
 
             if (!response.ok) {
                 const errorData = await response.json();
