@@ -12,7 +12,7 @@ import Login from "./Pages/Login";
 import Blog from "./Pages/Blog";
 import { useState } from "react";
 import ChatInterface from "./Pages/ChatInterface";
-import ProfilePage from "./Components/ProfilePage";
+import ProfilePage from "./Pages/ProfilePage";
 import ReadingPage from "./Pages/ReadingPage";
 import BlogPublish from "./Pages/BlogPublishForm";
 import ExpertsPage from "./Pages/ExpertsPage";

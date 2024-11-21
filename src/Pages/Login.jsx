@@ -32,16 +32,13 @@ function Login({ setIsLoggedIn }) {
     if (!isFormValid) return;
 
     try {
-      const response = await fetch(
-        "https://agritech-backend-lbq8.onrender.com/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await response.json();
 

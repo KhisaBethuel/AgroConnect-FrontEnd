@@ -25,7 +25,7 @@ const ReadingPage = () => {
     const fetchBlog = async () => {
       try {
         const response = await fetch(
-          `https://agritech-backend-lbq8.onrender.com/blogs/public/${id}`
+          `http://127.0.0.1:8081/blogs/public/${id}`
         );
         const data = await response.json();
         setBlog(data);
@@ -50,17 +50,14 @@ const ReadingPage = () => {
 
   const likePost = async () => {
     try {
-      const response = await fetch(
-        `https://agritech-backend-lbq8.onrender.com/likes`,
-        {
-          method: "POST",
-          body: JSON.stringify({ post_id: id }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await fetch(`http://127.0.0.1:8081/likes`, {
+        method: "POST",
+        body: JSON.stringify({ post_id: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -79,7 +76,7 @@ const ReadingPage = () => {
   const deleteLike = async () => {
     try {
       const response = await fetch(
-        `https://agritech-backend-lbq8.onrender.com/likes`,
+        `http://127.0.0.1:8081/likes`,
         {
           method: "DELETE",
           body: JSON.stringify({ post_id: id }),
@@ -119,7 +116,7 @@ const ReadingPage = () => {
 
     try {
       const response = await fetch(
-        `https://agritech-backend-lbq8.onrender.com/comments`,
+        `http://127.0.0.1:8081/comments`,
         {
           method: "POST",
           body: JSON.stringify({ content: commentText, post_id: id }),
@@ -148,7 +145,7 @@ const ReadingPage = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       const response = await fetch(
-        `https://agritech-backend-lbq8.onrender.com/comments/${commentId}`,
+        `http://127.0.0.1:8081/comments/${commentId}`,
         {
           method: "DELETE",
           headers: {
@@ -168,7 +165,7 @@ const ReadingPage = () => {
   const handleEditComment = async (commentId, newContent) => {
     try {
       const response = await fetch(
-        `https://agritech-backend-lbq8.onrender.com/comments/${commentId}`,
+        `http://127.0.0.1:8081/comments/${commentId}`,
         {
           method: "PUT",
           body: JSON.stringify({ content: newContent }),
