@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import Navbar from '../Components/Navbar';
 import React from "react";
 
 const MAX_TITLE_LENGTH = 100;
@@ -13,6 +13,7 @@ const BlogPublishForm = () => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
+    const [submissionError, setSubmissionError] = useState('');
 
     const validateForm = () => {
         const newErrors = {};
@@ -64,23 +65,44 @@ const BlogPublishForm = () => {
         if (!validateForm()) return;
 
         setIsSubmitting(true);
+        setSubmissionError('');
         try {
+            const accessToken = localStorage.getItem("accessToken");
+            if (!accessToken) {
+                setSubmissionError('You must be logged in to post a blog.');
+                setIsSubmitting(false);
+                return;
+            }
+
             const formDataToSend = {
                 title: formData.title.trim(),
-                story: formData.story.trim(),
-                imageUrl: formData.imageUrl.trim()
+                content: formData.story.trim(),
+                image: formData.imageUrl.trim()
             };
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log('Form Submitted:', formDataToSend);
-            
-            setFormData({ title: '', story: '', imageUrl: '' });
+            const response = await fetch(
+              "https://agritech-backend-922n.onrender.com/blogs",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(formDataToSend),
+              }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                setSubmissionError(errorData.errors ? errorData.errors.join(', ') : 'Failed to publish blog. Please try again.');
+            } else {
+                const data = await response.json();
+                console.log('Blog successfully submitted:', data);
+                setFormData({ title: '', story: '', imageUrl: '' });
+            }
         } catch (error) {
             console.error('Submission error:', error);
-            setErrors(prev => ({
-                ...prev,
-                submit: 'Failed to publish blog. Please try again.'
-            }));
+            setSubmissionError('An error occurred while submitting your blog.');
         } finally {
             setIsSubmitting(false);
         }
@@ -88,17 +110,16 @@ const BlogPublishForm = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-darkgreen">
-            <Navbar />
             <div className="container mx-auto px-4 py-12 pt-24">
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-2xl p-8 border border-gray-700">
                         <h1 className="text-3xl text-center text-green-400 font-bold mb-8">
                             Share Your Agricultural Story
                         </h1>
-                        
-                        {errors.submit && (
+
+                        {submissionError && (
                             <div className="mb-6 p-4 bg-red-900/50 border border-red-500 text-red-200 rounded-lg">
-                                {errors.submit}
+                                {submissionError}
                             </div>
                         )}
 
@@ -210,10 +231,10 @@ const BlogPublishForm = () => {
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                             </svg>
-                                            Publishing...
+                                            Submitting...
                                         </span>
                                     ) : (
-                                        'Publish Story'
+                                        'Publish Your Blog'
                                     )}
                                 </button>
                             </div>

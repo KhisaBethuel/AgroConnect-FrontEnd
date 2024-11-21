@@ -1,12 +1,15 @@
-import React, { useState, useContext } from "react";
+/* eslint-disable no-unused-vars */
 import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/authContext"; 
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../Context/authContext";
 import { Menu, X } from "lucide-react";
+
 
 export default function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
 
   const handleAuthClick = () => {
     if (isLoggedIn) {
