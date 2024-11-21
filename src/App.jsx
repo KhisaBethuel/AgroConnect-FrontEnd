@@ -14,48 +14,52 @@ import { useState } from "react";
 import ChatInterface from "./Pages/ChatInterface";
 import ProfilePage from "./Pages/ProfilePage";
 import ReadingPage from "./Pages/ReadingPage";
-import BlogPublish from "./Components/BlogPublishForm";
+import BlogPublish from "./Pages/BlogPublishForm";
 import ExpertsPage from "./Pages/ExpertsPage";
 import CommunityPage from "./Pages/CommunityPage";
 import { BlogsSection } from "./Components/BlogsSection";
+import { AuthProvider } from "./Context/AuthProvider";
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <main>
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route
-            path="/signup"
-            element={<SignUp setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route
-            path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/blogs" element={<Blog />} />
-          <Route path="/communitychat" element={<ChatInterface />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/blog/:id" element={<ReadingPage />} />
-          <Route path="/publish" element={<BlogPublish />} />
-          <Route path="/experts" element={<ExpertsPage />} />
-          <Route path="/communities" element={<CommunityPage />} />
-        </Routes>
-      </main>
-      {isHomePage && (
-        <>
-          <Features />
-          <ExpertsSection />
-          <BlogsSection />
+    <AuthProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <main>
+          <Routes>
+            <Route path="/" element={<Hero />} />
+            <Route
+              path="/signup"
+              element={<SignUp setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route
+              path="/login"
+              element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route path="/blogs" element={<Blog />} />
+            <Route path="/communitychat" element={<ChatInterface />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/blog/:id" element={<ReadingPage />} />
+            <Route path="/publish" element={<BlogPublish />} />
+            <Route path="/experts" element={<ExpertsPage />} />
+            <Route path="/communities" element={<CommunityPage />} />
+          </Routes>
+        </main>
+        {isHomePage && (
+          <>
+            <Features />
+            <ExpertsSection />
+            <BlogsSection />
 
-          <Footer />
-        </>
-      )}
-    </div>
+            <Footer />
+          </>
+        )}
+      </div>
+    </AuthProvider>
   );
 };
 

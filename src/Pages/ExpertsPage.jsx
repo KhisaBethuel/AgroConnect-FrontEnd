@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../Components/Navbar';
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Search, MapPin, UserPlus } from 'lucide-react';
@@ -52,7 +51,6 @@ function ExpertsPage() {
 
   return (
     <div className="pt-20">
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
         {/* Hero Section */}
         <div className="bg-green-700 text-white py-12 px-4">
