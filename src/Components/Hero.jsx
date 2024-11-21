@@ -8,11 +8,11 @@ const images = [
     title: "Connecting Agricultural Minds"
   },
   {
-    url: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+    url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
     title: "Sustainable Farming"
   },
   {
-    url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+    url: "https://images8.alphacoders.com/597/597633.jpg",
     title: "Innovation in Agriculture"
   }
 ];
@@ -35,7 +35,7 @@ function Hero() {
   }, [nextIndex]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-[800px] w-full overflow-hidden">
       {/* Current Image */}
       <div className="absolute inset-0">
         <img

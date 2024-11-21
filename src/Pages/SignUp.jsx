@@ -28,16 +28,42 @@ function SignUp({ setIsLoggedIn }) {
     password: false,
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid) {
-      console.log({ name, email, password });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      setIsLoggedIn(true);
-      navigate("/blogs");
+  if (isFormValid) {
+    try {
+      const response = await fetch(
+        "https://agritech-backend-lbq8.onrender.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: name,
+            email,
+            password,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        setIsLoggedIn(true);
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData.errors);
+        alert(errorData.errors.join(", "));
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Signup failed. Please try again.");
     }
-  };
-
+  }
+};
   const nameValidation = {
     isValid: name.length >= 2 && /^[a-zA-Z\s]*$/.test(name),
     message: "Name must be at least 2 characters and contain only letters",
@@ -85,7 +111,6 @@ function SignUp({ setIsLoggedIn }) {
 
   return (
     <div className="pt-10">
-      <Navbar />
       <div className="min-h-screen flex items-center justify-center p-4 relative bg-red">
         <div className="absolute inset-0 flex items-center justify-center bg-[url('https://frederica.pt/cdn/shop/articles/plantas-scaled.jpg?v=1696650424&width=1440')] rounded-b-lg bg-center bg-no-repeat bg-[length:90%_90%] " />
         <div className="absolute inset-0 bg-black/70" />
