@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Sprout, Users, Wheat, Tractor, Cloud, Sun, 
-  Leaf, MessageCircle, Share2, Filter
+  Leaf, MessageCircle, Share2, Filter, UserPlus, UserMinus
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 import React from "react";
@@ -10,6 +9,10 @@ import React from "react";
 function CommunityPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [joinedCommunities, setJoinedCommunities] = useState(() => {
+    const saved = localStorage.getItem('joinedCommunities');
+    return saved ? JSON.parse(saved) : [];
+  });
   
   const categories = [
     { id: 'all', name: 'All Communities', icon: <Sprout /> },
@@ -21,6 +24,7 @@ function CommunityPage() {
 
   const communities = [
     {
+      id: 1,
       name: 'FarmTech Innovation',
       description: 'Exploring the intersection of agriculture and cutting-edge technology for sustainable farming',
       imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
@@ -30,6 +34,7 @@ function CommunityPage() {
       tags: ['Technology', 'Innovation', 'Smart Farming']
     },
     {
+      id: 2,
       name: 'Sustainable Farming',
       description: 'Building a community focused on eco-friendly and sustainable agricultural practices',
       imageUrl: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
@@ -39,6 +44,7 @@ function CommunityPage() {
       tags: ['Organic', 'Sustainability', 'Eco-friendly']
     },
     {
+      id: 3,
       name: 'Weather Watch',
       description: 'Stay updated with weather patterns and their impact on farming',
       imageUrl: 'https://images.unsplash.com/photo-1561553873-e8491a564fd0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
@@ -48,6 +54,7 @@ function CommunityPage() {
       tags: ['Weather', 'Climate', 'Forecasting']
     },
     {
+      id: 4,
       name: 'Crop Innovation',
       description: 'Discussing new crop varieties and cultivation techniques',
       imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
@@ -57,6 +64,21 @@ function CommunityPage() {
       tags: ['Crops', 'Innovation', 'Research']
     },
   ];
+
+  useEffect(() => {
+    localStorage.setItem('joinedCommunities', JSON.stringify(joinedCommunities));
+  }, [joinedCommunities]);
+
+  const handleJoinCommunity = (communityId) => {
+    setJoinedCommunities(prev => {
+      const isJoined = prev.includes(communityId);
+      if (isJoined) {
+        return prev.filter(id => id !== communityId);
+      } else {
+        return [...prev, communityId];
+      }
+    });
+  };
 
   const filteredCommunities = communities.filter((community) => {
     const matchesSearch = community.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -71,6 +93,8 @@ function CommunityPage() {
   ];
 
   function CommunityCard({ community }) {
+    const isJoined = joinedCommunities.includes(community.id);
+
     return (
       <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
         <div className="relative h-48 overflow-hidden">
@@ -107,8 +131,25 @@ function CommunityPage() {
           </div>
           
           <div className="flex gap-2">
-            <button className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-              Join Community
+            <button
+              onClick={() => handleJoinCommunity(community.id)}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg transition-colors duration-200 ${
+                isJoined
+                  ? 'bg-red-50 text-red-600 hover:bg-red-100'
+                  : 'bg-green-600 text-white hover:bg-green-700'
+              }`}
+            >
+              {isJoined ? (
+                <>
+                  <UserMinus className="w-5 h-5" />
+                  Leave Community
+                </>
+              ) : (
+                <>
+                  <UserPlus className="w-5 h-5" />
+                  Join Community
+                </>
+              )}
             </button>
             <button className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200">
               <Share2 className="w-5 h-5" />
@@ -120,7 +161,6 @@ function CommunityPage() {
   }
 
   return (
-    
     <div className='pt-20'>
       <Navbar />
       
@@ -189,8 +229,8 @@ function CommunityPage() {
 
         {/* Communities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {filteredCommunities.map((community, index) => (
-            <CommunityCard key={index} community={community} />
+          {filteredCommunities.map((community) => (
+            <CommunityCard key={community.id} community={community} />
           ))}
         </div>
 
