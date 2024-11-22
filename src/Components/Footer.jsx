@@ -8,8 +8,8 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row flex-wrap gap-8 w-full justify-between">
         {footerLinks.map((section) => (
           <div key={section.title} className="w-full sm:w-1/2 md:w-1/4 flex flex-col">
-            <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
-            <ul className="list-none space-y-2">
+            <h3 className="text-lg text-center font-semibold mb-3">{section.title}</h3>
+            <ul className="list-none text-center space-y-2">
               {section.links.map((item, index) => (
                 <li key={index}>
                   {item.link ? (
