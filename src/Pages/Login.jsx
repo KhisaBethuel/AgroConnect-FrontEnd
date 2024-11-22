@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
+import Swal from "sweetalert2";
 import React from "react"
 
 // eslint-disable-next-line react/prop-types
@@ -52,12 +52,21 @@ function Login({ setIsLoggedIn }) {
         setIsLoggedIn(true);
         navigate("/blogs");
       } else {
-        setErrorMessage(data.errors ? data.errors[0] : "Login failed");
+        Swal.fire({
+          title: "Login Failed",
+          text: data.errors ? data.errors[0] : "Invalid credentials. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });      
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
-      console.error("Login error:", error);
-    }
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      console.error("Login error:", error);    }
   };
 
 
