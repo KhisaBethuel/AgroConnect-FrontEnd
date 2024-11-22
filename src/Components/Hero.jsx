@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const images = [
@@ -87,6 +87,7 @@ function Hero() {
           <p className="mx-auto mb-8 max-w-2xl text-lg text-white drop-shadow-lg sm:text-xl md:text-2xl">
             Join the world&apos;s largest network of agricultural experts, farmers, and researchers
           </p>
+          <Link to="/signup">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -96,6 +97,7 @@ function Hero() {
           >
             GET STARTED
           </motion.button>
+          </Link>
         </motion.div>
       </div>
 
