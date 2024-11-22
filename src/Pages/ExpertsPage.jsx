@@ -1,12 +1,18 @@
-import { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react';
 import React from "react";
-import { Search, MapPin, UserPlus } from 'lucide-react';
+import { Search, MapPin, UserPlus, UserMinus } from 'lucide-react';
+import Navbar from '../Components/Navbar';
 
 function ExpertsPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [followedExperts, setFollowedExperts] = useState(() => {
+    const saved = localStorage.getItem('followedExperts');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const experts = [
     {
+      id: 1,
       name: 'Dr. Victor Shape',
       expertise: 'Soil Science Expert',
       location: 'Nairobi, Kenya',
@@ -16,6 +22,7 @@ function ExpertsPage() {
       rating: 4.8
     },
     {
+      id: 2,
       name: 'Dr. Mulu Katungi',
       expertise: 'Irrigation Specialist',
       location: 'Kampala, Uganda',
@@ -25,6 +32,7 @@ function ExpertsPage() {
       rating: 4.9
     },
     {
+      id: 3,
       name: 'Prof. Jane Wairimu',
       expertise: 'Agricultural Finance',
       location: 'Dar es Salaam, Tanzania',
@@ -34,6 +42,7 @@ function ExpertsPage() {
       rating: 4.7
     },
     {
+      id: 4,
       name: 'Dr. Larry Onyango',
       expertise: 'Agribusiness Expert',
       location: 'Kigali, Rwanda',
@@ -44,6 +53,21 @@ function ExpertsPage() {
     }
   ];
 
+  useEffect(() => {
+    localStorage.setItem('followedExperts', JSON.stringify(followedExperts));
+  }, [followedExperts]);
+
+  const handleFollow = (expert) => {
+    setFollowedExperts(prev => {
+      const isFollowing = prev.some(e => e.id === expert.id);
+      if (isFollowing) {
+        return prev.filter(e => e.id !== expert.id);
+      } else {
+        return [...prev, expert];
+      }
+    });
+  };
+
   const filteredExperts = experts.filter((expert) =>
     expert.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     expert.expertise.toLowerCase().includes(searchTerm.toLowerCase())
@@ -51,6 +75,7 @@ function ExpertsPage() {
 
   return (
     <div className="pt-20">
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
         {/* Hero Section */}
         <div className="bg-green-700 text-white py-12 px-4">
@@ -75,45 +100,61 @@ function ExpertsPage() {
         {/* Experts Grid */}
         <div className="container mx-auto max-w-6xl px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredExperts.map((expert, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                <div className="relative h-48">
-                  <img
-                    src={expert.imageUrl}
-                    alt={expert.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-0 right-0 m-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm">
-                    ⭐ {expert.rating}
-                  </div>
-                </div>
-                
-                <div className="p-6 flex flex-col gap-2 items-center">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{expert.name}</h3>
-                  <p className="text-green-700 font-semibold mb-2">{expert.expertise}</p>
-                  
-                 
-                  
-                  <div className="text-sm text-gray-600 mb-4">
-                    <p><strong>Specialization:</strong> {expert.specialization}</p>
-                    <p><strong>Experience:</strong> {expert.experience}</p>
+            {filteredExperts.map((expert) => {
+              const isFollowing = followedExperts.some(e => e.id === expert.id);
+              return (
+                <div key={expert.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                  <div className="relative h-48">
+                    <img
+                      src={expert.imageUrl}
+                      alt={expert.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-0 right-0 m-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm">
+                      ⭐ {expert.rating}
+                    </div>
                   </div>
                   
-                   <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    <span className="text-sm">{expert.location}</span>
-                  </div>
-                  
-                  <div className="flex gap-2">
+                  <div className="p-6 flex flex-col gap-2 items-center">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{expert.name}</h3>
+                    <p className="text-green-700 font-semibold mb-2">{expert.expertise}</p>
                     
-                    <button className="flex-1 border border-green-600 text-green-600 hover:bg-green-50 py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition duration-300">
-                      <UserPlus className="h-4 w-4" />
-                      Follow
-                    </button>
+                    <div className="text-sm text-gray-600 mb-4">
+                      <p><strong>Specialization:</strong> {expert.specialization}</p>
+                      <p><strong>Experience:</strong> {expert.experience}</p>
+                    </div>
+                    
+                    <div className="flex items-center text-gray-600 mb-2">
+                      <MapPin className="h-4 w-4 mr-2" />
+                      <span className="text-sm">{expert.location}</span>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={() => handleFollow(expert)}
+                        className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition duration-300 ${
+                          isFollowing 
+                            ? 'bg-red-50 text-red-600 border border-red-600 hover:bg-red-100' 
+                            : 'border border-green-600 text-green-600 hover:bg-green-50'
+                        }`}
+                      >
+                        {isFollowing ? (
+                          <>
+                            <UserMinus className="h-4 w-4" />
+                            Unfollow
+                          </>
+                        ) : (
+                          <>
+                            <UserPlus className="h-4 w-4" />
+                            Follow
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
