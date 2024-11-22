@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   Eye,
@@ -13,7 +11,9 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import Swal from 'sweetalert2';
 import React from "react";
+
 
 function SignUp({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -52,7 +52,14 @@ function SignUp({ setIsLoggedIn }) {
         const data = await response.json();
         console.log(data.message);
         setIsLoggedIn(true);
+        Swal.fire({
+          title: "Success!",
+          text: "You have signed up successfully!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        }).then(() => {
         navigate("/login");
+        });
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData.errors);
