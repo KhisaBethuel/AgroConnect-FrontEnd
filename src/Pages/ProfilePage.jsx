@@ -1,31 +1,32 @@
-/* eslint-disable no-unused-vars */
-import Navbar from "../Components/Navbar";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import React from "react";
-import { Upload, X, Users, MessageSquare, Share2, Heart, Eye, Edit2, Trash2 } from 'lucide-react';
+import Navbar from "../Components/Navbar";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Upload, X, Share2, Heart, Eye, Edit2, Trash2 } from 'lucide-react';
 
 function ProfilePage() {
   const navigate = useNavigate();
-  const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
-  const [loadingFollowers, setLoadingFollowers] = useState(false);
-  const [loadingFollowing, setLoadingFollowing] = useState(false);
+  const [tempImage, setTempImage] = useState(null);
+  const [joinedCommunities, setJoinedCommunities] = useState(() => {
+    const saved = localStorage.getItem('joinedCommunities');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [followedExperts, setFollowedExperts] = useState(() => {
+    const saved = localStorage.getItem('followedExperts');
+    return saved ? JSON.parse(saved) : [];
+  });
   
   // Profile state
   const [name, setName] = useState('Eng Terry Otieno');
   const [bio, setBio] = useState('Agricultural Engineer | Sustainable Farming Expert | Tech Enthusiast');
   const [profileImage, setProfileImage] = useState('https://thumbs.dreamstime.com/b/happy-african-farmer-working-countryside-holding-wood-box-fresh-vegetables-215052594.jpg');
-  const [tempImage, setTempImage] = useState(null);
 
   const stats = [
     { label: 'Posts', value: '23' },
-    { label: 'Followers', value: '1.2K', onClick: handleFollowersClick },
-    { label: 'Following', value: '843', onClick: handleFollowingClick },
-    { label: 'Communities', value: '12', onClick: () => navigate("/communitychat") }
+    { label: 'Following', value: followedExperts.length.toString(), onClick: () => navigate("/experts") },
+    { label: 'Communities', value: joinedCommunities.length.toString(), onClick: () => navigate("/communities") },
+    { label: 'Followers', value: '12' },
   ];
 
   const posts = [
@@ -55,6 +56,23 @@ function ProfilePage() {
     }
   ];
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedCommunities = localStorage.getItem('joinedCommunities');
+      const savedExperts = localStorage.getItem('followedExperts');
+      
+      if (savedCommunities) {
+        setJoinedCommunities(JSON.parse(savedCommunities));
+      }
+      if (savedExperts) {
+        setFollowedExperts(JSON.parse(savedExperts));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -74,42 +92,13 @@ function ProfilePage() {
     setShowEditModal(false);
   };
 
-  async function handleFollowersClick() {
-    setShowFollowersModal(true);
-    try {
-      setLoadingFollowers(true);
-      const response = await fetch("#");
-      const data = await response.json();
-      setFollowers(data);
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoadingFollowers(false);
-    }
-  }
-
-  async function handleFollowingClick() {
-    setShowFollowingModal(true);
-    try {
-      setLoadingFollowing(true);
-      const response = await fetch("#");
-      const data = await response.json();
-      setFollowing(data);
-    } finally {
-      setLoadingFollowing(false);
-    }
-  }
-
   const closeModal = () => {
-    setShowFollowersModal(false);
-    setShowFollowingModal(false);
     setShowEditModal(false);
     setTempImage(null);
   };
 
   return (
-    
-      <div className="pt-20 min-h-screen bg-gray-50">
+    <div className="pt-20 min-h-screen bg-gray-50">
       <Navbar />
       
       {/* Hero Section */}
@@ -296,48 +285,7 @@ function ProfilePage() {
           </div>
         </div>
       )}
-
-      {/* Followers/Following Modals */}
-      {(showFollowersModal || showFollowingModal) && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full mx-4">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">
-                {showFollowersModal ? 'Followers' : 'Following'}
-              </h2>
-              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            
-            {(loadingFollowers || loadingFollowing) ? (
-              <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600" />
-              </div>
-            ) : (
-              <div className="divide-y">
-                {(showFollowersModal ? followers : following).map((user, index) => (
-                  <div key={index} className="flex items-center gap-4 py-4">
-                    <img
-                      src={user.avatar || 'https://via.placeholder.com/40'}
-                      alt={user.name}
-                      className="w-10 h-10 rounded-full"
-                    />
-                    <div>
-                      <h3 className="font-medium">{user.name}</h3>
-                      <p className="text-sm text-gray-500">{user.bio}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-        
-        
-      </div>
-      )}
-      </div>
+    </div>
   );
 }
 
