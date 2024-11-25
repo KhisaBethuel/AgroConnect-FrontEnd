@@ -50,17 +50,14 @@ const ReadingPage = () => {
 
   const likePost = async () => {
     try {
-      const response = await fetch(
-        `https://agritech-backend-922n.onrender.com/likes`,
-        {
-          method: "POST",
-          body: JSON.stringify({ post_id: id }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await fetch(`https://agritech-backend-922n.onrender.com/likes`, {
+        method: "POST",
+        body: JSON.stringify({ post_id: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -78,17 +75,14 @@ const ReadingPage = () => {
 
   const deleteLike = async () => {
     try {
-      const response = await fetch(
-        `https://agritech-backend-922n.onrender.com/likes`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ post_id: id }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await fetch(`https://agritech-backend-922n.onrender.com/likes`, {
+        method: "DELETE",
+        body: JSON.stringify({ post_id: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -118,17 +112,14 @@ const ReadingPage = () => {
     }
 
     try {
-      const response = await fetch(
-        `https://agritech-backend-922n.onrender.com/comments`,
-        {
-          method: "POST",
-          body: JSON.stringify({ content: commentText, post_id: id }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await fetch(`https://agritech-backend-922n.onrender.com/comments`, {
+        method: "POST",
+        body: JSON.stringify({ content: commentText, post_id: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (response.ok) {
         const newComment = await response.json();
