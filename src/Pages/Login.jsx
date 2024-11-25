@@ -1,8 +1,10 @@
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 import React from "react"
+import { AuthContext } from "../Context/authContext";
 
 // eslint-disable-next-line react/prop-types
 function Login({ setIsLoggedIn }) {
@@ -12,6 +14,7 @@ function Login({ setIsLoggedIn }) {
   const [touched, setTouched] = useState({ email: false, password: false });
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const { login } = useContext(AuthContext);
 
 
   const emailValidation = {
@@ -32,16 +35,13 @@ function Login({ setIsLoggedIn }) {
     if (!isFormValid) return;
 
     try {
-      const response = await fetch(
-        "https://agritech-backend-922n.onrender.com/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch("https://agritech-backend-922n.onrender.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await response.json();
 
@@ -49,7 +49,7 @@ function Login({ setIsLoggedIn }) {
         const expirationTime = Date.now() + 3600 * 1000; 
         localStorage.setItem("accessToken", data["access token"]);
         localStorage.setItem("refreshToken", data["refresh token"]);
-        setIsLoggedIn(true);
+        login(); 
         navigate("/blogs");
       } else {
         Swal.fire({

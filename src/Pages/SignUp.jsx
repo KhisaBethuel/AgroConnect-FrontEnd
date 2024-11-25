@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import {
   Eye,
@@ -10,7 +12,6 @@ import {
   XCircle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar";
 import Swal from 'sweetalert2';
 import React from "react";
 
@@ -33,20 +34,17 @@ function SignUp({ setIsLoggedIn }) {
 
   if (isFormValid) {
     try {
-      const response = await fetch(
-        "https://agritech-backend-922n.onrender.com/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: name,
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("https://agritech-backend-922n.onrender.com/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: name,
+          email,
+          password,
+        }),
+      });
 
       if (response.ok) {
         const data = await response.json();
